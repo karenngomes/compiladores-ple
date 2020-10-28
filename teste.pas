@@ -1,5 +1,5 @@
 program
-a1 := 4
+1a := 4
 var entrada := 15
 var aux := 30 
 if (entrada and not aux >= 3)

@@ -21,8 +21,10 @@ class Lexical(object):
         self.tokens.append((self.buffer, 'boolean2'))
       elif self.alphabet.is_reserved_word(self.buffer): # ou se eh palavra reservada
         self.tokens.append((self.buffer, 'reserved'))
-      else: # entao eh um identificador
+      elif self.alphabet.is_id(self.buffer): # ou se eh um identificador
         self.tokens.append((self.buffer, 'id'))
+      else:
+        raise Exception(f"Invalid identifier '{self.buffer}' at position {self.pos + 1}, line {self.line}")
     self.buffer = ''
 
   def __is_compose_delimiter(self, line_buffer):
@@ -69,3 +71,8 @@ class Lexical(object):
     return self.tokens
 
 
+
+if __name__ == '__main__':
+  with open('teste.pas', 'r') as file:
+    lex = Lexical(file)
+    print(lex.split())
