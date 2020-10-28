@@ -1,4 +1,4 @@
-from Alphabet import Alphabet
+from LexicalBuffer import LexicalBuffer
 
 
 class Lexical(object):
@@ -6,54 +6,59 @@ class Lexical(object):
   def __init__(self, file):
     self.file = file
     self.tokens = []
-    self.buffer = ''
+    self.buffer = LexicalBuffer()
     self.line = 0
     self.pos = 0
-    self.alphabet = Alphabet()
+
+  def __add_buffer_to_tokens(self, group : str):
+    self.tokens.append((str(self.buffer), group))
 
   def __handle_buffer(self):
-    if len(self.buffer) > 0 and self.alphabet.is_number(self.buffer): # se for um numero
-      self.tokens.append((self.buffer, 'intnum'))
-    elif len(self.buffer) > 0 and self.alphabet.is_word(self.buffer): # se for palavra
-      if self.alphabet.is_boolean_one(self.buffer): # verifica se eh op boolean1
-        self.tokens.append((self.buffer, 'boolean1'))
-      elif self.alphabet.is_boolean_two(self.buffer): # verifica se eh op boolean2
-        self.tokens.append((self.buffer, 'boolean2'))
-      elif self.alphabet.is_reserved_word(self.buffer): # ou se eh palavra reservada
-        self.tokens.append((self.buffer, 'reserved'))
-      elif self.alphabet.is_id(self.buffer): # ou se eh um identificador
-        self.tokens.append((self.buffer, 'id'))
+    if len(self.buffer) == 0: return
+
+    if self.buffer.is_number(): # se for um numero
+      self.__add_buffer_to_tokens('intnum')
+
+    elif self.buffer.is_word(): # se for palavra
+      if self.buffer.is_boolean_one(): # verifica se eh op boolean1
+        self.__add_buffer_to_tokens('boolean1')
+      elif self.buffer.is_boolean_two(): # verifica se eh op boolean2
+        self.__add_buffer_to_tokens('boolean2')
+      elif self.buffer.is_reserved_word(): # ou se eh palavra reservada
+        self.__add_buffer_to_tokens('reserved')
+      elif self.buffer.is_id(): # ou se eh um identificador
+        self.__add_buffer_to_tokens('id')
       else:
         raise Exception(f"Invalid identifier '{self.buffer}' at position {self.pos + 1}, line {self.line}")
-    self.buffer = ''
+    self.buffer.clean()
 
   def __is_compose_delimiter(self, line_buffer):
-    current_symbol = line_buffer[self.pos]
+    current_symbol = LexicalBuffer(line_buffer[self.pos])
     if self.pos + 1 < len(line_buffer): 
       compose = current_symbol + line_buffer[self.pos + 1]
-      if self.alphabet.is_compose_delimiter(compose): 
-        if self.alphabet.is_relational(compose):
-          self.tokens.append((compose, 'relational'))
+      if compose.is_compose_delimiter(): 
+        if compose.is_relational():
+          self.tokens.append((str(compose), 'relational'))
         else:
-          self.tokens.append((compose, 'delimiter'))
+          self.tokens.append((str(compose), 'attribution'))
         self.pos += 1
         return True
     return False
           
   def __split(self, line_buffer):
-    current_symbol = line_buffer[self.pos]
-    if self.alphabet.is_white_space(current_symbol):
+    current_symbol = LexicalBuffer(line_buffer[self.pos])
+    if current_symbol.is_white_space():
       self.__handle_buffer()
 
-    elif self.alphabet.is_delimiter(current_symbol):
+    elif current_symbol.is_delimiter():
       self.__handle_buffer()
       if not self.__is_compose_delimiter(line_buffer):
-        if self.alphabet.is_operator(current_symbol):
-          self.tokens.append((current_symbol, 'operator'))
+        if current_symbol.is_operator():
+          self.tokens.append((str(current_symbol), 'operator'))
         else:
-          self.tokens.append((current_symbol, 'delimiter'))
+          self.tokens.append((str(current_symbol), 'relational'))
 
-    elif self.alphabet.has(current_symbol): 
+    elif current_symbol.is_valid(): 
       self.buffer += current_symbol
 
     else:
