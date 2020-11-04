@@ -13,6 +13,9 @@ class Lexical(object):
   def __add_buffer_to_tokens(self, group : str):
     self.tokens.append((str(self.buffer), group))
 
+  def __add_to_tokens(self, symbol, group : str):
+    self.tokens.append((str(symbol), group))
+
   def __handle_buffer(self):
     if len(self.buffer) == 0: return
 
@@ -38,9 +41,9 @@ class Lexical(object):
       compose = current_symbol + line_buffer[self.pos + 1]
       if compose.is_compose_delimiter(): 
         if compose.is_relational():
-          self.tokens.append((str(compose), 'relational'))
+          self.__add_to_tokens(compose, 'relational')
         else:
-          self.tokens.append((str(compose), 'attribution'))
+          self.__add_to_tokens(compose, 'attribution')
         self.pos += 1
         return True
     return False
@@ -54,9 +57,11 @@ class Lexical(object):
       self.__handle_buffer()
       if not self.__is_compose_delimiter(line_buffer):
         if current_symbol.is_operator():
-          self.tokens.append((str(current_symbol), 'operator'))
+          self.__add_to_tokens(current_symbol, 'operator')
+        elif current_symbol.is_relational():
+          self.__add_to_tokens(current_symbol, 'relational')
         else:
-          self.tokens.append((str(current_symbol), 'relational'))
+          self.__add_to_tokens(current_symbol, 'delimiter')
 
     elif current_symbol.is_valid(): 
       self.buffer += current_symbol
@@ -74,10 +79,3 @@ class Lexical(object):
         self.pos += 1
       self.pos = 0
     return self.tokens
-
-
-
-if __name__ == '__main__':
-  with open('teste.pas', 'r') as file:
-    lex = Lexical(file)
-    print(lex.split())
