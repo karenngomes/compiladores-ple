@@ -1,4 +1,4 @@
-from LexicalBuffer import LexicalBuffer
+from .LexicalBuffer import LexicalBuffer
 
 
 class Lexical(object):
@@ -41,7 +41,7 @@ class Lexical(object):
       compose = current_symbol + line_buffer[self.pos + 1]
       if compose.is_compose_delimiter(): 
         if compose.is_relational():
-          self.__add_to_tokens(compose, 'relational')
+          self.__add_to_tokens(compose, 'relacao')
         else:
           self.__add_to_tokens(compose, 'attribution')
         self.pos += 1
@@ -57,9 +57,9 @@ class Lexical(object):
       self.__handle_buffer()
       if not self.__is_compose_delimiter(line_buffer):
         if current_symbol.is_operator():
-          self.__add_to_tokens(current_symbol, 'operator')
+          self.__add_to_tokens(current_symbol, 'operador')
         elif current_symbol.is_relational():
-          self.__add_to_tokens(current_symbol, 'relational')
+          self.__add_to_tokens(current_symbol, 'relacao')
         else:
           self.__add_to_tokens(current_symbol, 'delimiter')
 
