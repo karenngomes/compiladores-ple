@@ -1,9 +1,10 @@
 import csv
+from .SymbolsHandler import SymbolsHandler
 
 class Syntatic(object):
   special_terminals = ['intnum', 'id', 'relacao', 'operador', 'boolean1', 'boolean2']
 
-  terminals = [',', ';', ':=', ':', '.', '(', ')','program', 'begin', 'end', 'var', 
+  terminals = ['$', ',', ';', ':=', ':', '.', '(', ')','program', 'begin', 'end', 'var', 
   'integer', 'boolean', 'procedure', 'function', 'read', 'write', 'for', 'to', 'do', 
   'repeat', 'until', 'while', 'if', 'then','else']
 
@@ -11,7 +12,9 @@ class Syntatic(object):
     self.tokens = tokens
     self.tokens.append(('$', 'end'))
     self.current_token = 0
-    self.table = self.__read_table()
+    self.syntatic_table = self.__read_table()
+    self.symbols_table = None
+    self.symbols_handler = SymbolsHandler()
     self.stack = ['$', '<programa>']
 
   def stack_pop(self):
@@ -30,26 +33,32 @@ class Syntatic(object):
       current = self.tokens[self.current_token]
       if self.match(top, current):
         self.current_token += 1
+        self.symbols_handler.analyze(current)
       elif self.is_non_terminal(top):
-        production = self.__get_production(top, current)
-        if production == '':
-          raise Exception('SyntaticError: 1')
-        elif production == '#':
-          continue
-        else:
-          production = production.split(' ')[::-1]
-          self.stack_push(production)
+        self.__expand_production(top, current)
       else:
-        raise Exception(f'SyntaticError: Expecting {current[0]}, got {top}.')
+        raise Exception(f'SyntaticError: Expecting {top[0]}, got {current[0]}.')
+    self.symbols_table = self.symbols_handler.scope_manager
+    return self.symbols_table
 
   def is_non_terminal(self, top):
     return top[0] == '<' and top[len(top) - 1] == '>'
+  
+  def __expand_production(self, top, current):
+    production = self.__get_production(top, current)
+    if production == '':
+      raise Exception('SyntaticError: 1')
+    elif production == '#':
+      pass
+    else:
+      production = production.split(' ')[::-1]
+      self.stack_push(production)
 
   def __get_production(self, top, current):
     column = current[0]
     if current[1] in self.special_terminals:
       column = current[1]
-    return self.table[top][column]
+    return self.syntatic_table[top][column]
 
 
   def match(self, top, current):
@@ -63,7 +72,7 @@ class Syntatic(object):
     return top in self.terminals
 
   def __read_table(self):
-    with open('SyntaticAnalyzer/table.csv') as csvfile:
+    with open('SyntaticAnalyzer/syntatic-table.csv') as csvfile:
       table = csv.DictReader(csvfile)
       temp = list(table)
       table = self.__format_table(temp)
@@ -89,4 +98,5 @@ class Syntatic(object):
 
 
 if __name__ == '__main__':
-  read_table()
+  # read_table()
+  pass
