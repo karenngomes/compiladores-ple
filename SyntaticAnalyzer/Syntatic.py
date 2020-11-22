@@ -1,4 +1,4 @@
-import csv
+import csv, sys
 from .SymbolsHandler import SymbolsHandler
 
 class Syntatic(object):
@@ -29,8 +29,10 @@ class Syntatic(object):
 
   def parse(self):
     while(len(self.stack) > 0):
+      #print(self.stack, end='    ')
       top = self.stack_pop()
       current = self.tokens[self.current_token]
+      #print(f'current: {current[0]}')
       if self.match(top, current):
         self.current_token += 1
         self.symbols_handler.analyze(current)
@@ -47,7 +49,10 @@ class Syntatic(object):
   def __expand_production(self, top, current):
     production = self.__get_production(top, current)
     if production == '':
-      raise Exception('SyntaticError: 1')
+      raise Exception('SyntaticError.')
+      #print(self.stack)
+      #print('erro')
+      #sys.exit(0)
     elif production == '#':
       pass
     else:
@@ -93,8 +98,6 @@ class Syntatic(object):
     del row['|']
     row[','] = row[','].replace('|', ',')
 
-  def __raise_exception(self, current=None):
-    raise Exception('SyntaticalError: ...')
 
 
 if __name__ == '__main__':

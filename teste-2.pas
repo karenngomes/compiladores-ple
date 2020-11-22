@@ -19,11 +19,7 @@ program teste;
 				v := 1;
 			end;
 
-		function funcinproc(arg1 : integer; arg2 : boolean) : integer;
-		begin
-			arg1 := 3;
-			arg2 := 0;
-		end;
+		
 
 		begin
 			procvar := 1;

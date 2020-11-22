@@ -24,7 +24,7 @@ producoes,begin,boolean,boolean1,boolean2,do,else,end,for,function,id,if,integer
 <mais_var_read>,,,,,,,,,,,,,,,,,,,,,,,,,,| <var_read>,,,,,#,
 <var_write>,,,,,,,,,,<id> <mais_var_write>,,,,,,,,,,,,,,,,,,,,,,
 <mais_var_write>,,,,,,,,,,,,,,,,,,,,,,,,,,| <var_write>,,,,,#,
-<comando>,,,,,,,,"for <id> := <expressao> to <expressao> do begin <sentencas> end",,<id> := <expressao>,if ( <condicao> ) then begin <sentencas> end <pfalsa>,,,,,,read ( <var_read> ),,repeat <sentencas> until ( <condicao> ),,,,,while ( <condicao> ) do begin <sentencas> end ,write ( <var_write> ),,,,,,,
+<comando>,,,,,,,,"for <id> := <expressao> to <expressao> do begin <sentencas> end",,<comando_id>,if ( <condicao> ) then begin <sentencas> end <pfalsa>,,,,,,read ( <var_read> ),,repeat <sentencas> until ( <condicao> ),,,,,while ( <condicao> ) do begin <sentencas> end ,write ( <var_write> ),,,,,,,
 <comando_id>,,,,,,,,,,<id> <tratar_id>,,,,,,,,,,,,,,,,,,,,,,
 <tratar_id>,,,,,,,,,,,,,,,,,,,,,,,,,,,#,,:= <expressao>,<argumentos>,,
 <argumentos>,,,,,,,,,,,,,,,,,,,,,,,,,,,#,,,( <lista_arg> ),,
