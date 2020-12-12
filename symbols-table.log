@@ -1,0 +1,35 @@
+-----lexema----------token----------category---------scope------------type-----------value------
+      te1      |      id       |   variable    |    global     |    integer    |     None      |
+      aux      |      id       |   variable    |    global     |    integer    |     None      |
+    entrada    |      id       |   variable    |    global     |    integer    |     None      |
+      ti       |      id       |   variable    |    global     |    boolean    |     None      |
+      te       |      id       |   variable    |    global     |    boolean    |     None      |
+umprocedimento |      id       |   procedure   |    global     |     None      |     None      |
+   umafuncao   |      id       |   function    |    global     |    integer    |     None      |
+
+-----lexema----------token----------category---------scope------------type-----------value------
+   argproc2    |      id       |   variable    |umprocedimento |    integer    |     None      |
+   argproc1    |      id       |   variable    |umprocedimento |    integer    |     None      |
+   argproc4    |      id       |   variable    |umprocedimento |    boolean    |     None      |
+   argproc3    |      id       |   variable    |umprocedimento |    boolean    |     None      |
+     pvar      |      id       |   variable    |umprocedimento |    boolean    |     None      |
+    procvar    |      id       |   variable    |umprocedimento |    boolean    |     None      |
+     ppvar     |      id       |   variable    |umprocedimento |    integer    |     None      |
+  intprocvar   |      id       |   variable    |umprocedimento |    integer    |     None      |
+   outroproc   |      id       |   procedure   |umprocedimento |     None      |     None      |
+  maisumproc   |      id       |   procedure   |umprocedimento |     None      |     None      |
+  funcinproc   |      id       |   function    |umprocedimento |    integer    |     None      |
+
+-----lexema----------token----------category---------scope------------type-----------value------
+       x       |      id       |   variable    |   outroproc   |    integer    |     None      |
+
+-----lexema----------token----------category---------scope------------type-----------value------
+       x       |      id       |   variable    |  maisumproc   |    integer    |     None      |
+
+-----lexema----------token----------category---------scope------------type-----------value------
+     arg1      |      id       |   variable    |  funcinproc   |    integer    |     None      |
+     arg2      |      id       |   variable    |  funcinproc   |    boolean    |     None      |
+
+-----lexema----------token----------category---------scope------------type-----------value------
+    funcvar    |      id       |   variable    |   umafuncao   |    integer    |     None      |
+

@@ -19,11 +19,7 @@ program teste;
 				v := 1;
 			end;
 
-		function funcinproc(arg1 : integer; arg2 : boolean) : integer;
-		begin
-			arg1 := 3;
-			arg2 := 0;
-		end;
+		
 
 		begin
 			procvar := 1;
@@ -39,22 +35,10 @@ program teste;
 	end;
 begin
     entrada := 15 + 15 * 12;
-    
-	if (entrada > aux) then
+    if (entrada > aux) then
     begin 
         aux := 5;
     end;
-	
-	umprocedimento;
-
-	for entrada := 1 to 5 do
-	begin
-		read(entrada);
-	end;
-
-	while (x < 10) do
-	begin
-		write(entrada);
-	end;
+		umprocedimento;
 end
 .

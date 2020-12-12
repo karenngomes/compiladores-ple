@@ -1,5 +1,5 @@
-from LexicalBuffer import LexicalBuffer
-
+from .LexicalBuffer import LexicalBuffer
+from utils.Exceptions import LexicalError
 
 class Lexical(object):
 
@@ -32,7 +32,7 @@ class Lexical(object):
       elif self.buffer.is_id(): # ou se eh um identificador
         self.__add_buffer_to_tokens('id')
       else:
-        raise Exception(f"Invalid identifier '{self.buffer}' at position {self.pos + 1}, line {self.line}")
+        raise LexicalError(f"Invalid identifier '{self.buffer}' at position {self.pos + 1}, line {self.line}")
     self.buffer.clean()
 
   def __is_compose_delimiter(self, line_buffer):
@@ -41,7 +41,7 @@ class Lexical(object):
       compose = current_symbol + line_buffer[self.pos + 1]
       if compose.is_compose_delimiter(): 
         if compose.is_relational():
-          self.__add_to_tokens(compose, 'relational')
+          self.__add_to_tokens(compose, 'relacao')
         else:
           self.__add_to_tokens(compose, 'attribution')
         self.pos += 1
@@ -57,9 +57,9 @@ class Lexical(object):
       self.__handle_buffer()
       if not self.__is_compose_delimiter(line_buffer):
         if current_symbol.is_operator():
-          self.__add_to_tokens(current_symbol, 'operator')
+          self.__add_to_tokens(current_symbol, 'operador')
         elif current_symbol.is_relational():
-          self.__add_to_tokens(current_symbol, 'relational')
+          self.__add_to_tokens(current_symbol, 'relacao')
         else:
           self.__add_to_tokens(current_symbol, 'delimiter')
 
@@ -67,7 +67,7 @@ class Lexical(object):
       self.buffer += current_symbol
 
     else:
-      raise Exception(f'Invalid symbol at position {self.pos + 1}, line {self.line}')
+      raise LexicalError(f'Invalid symbol at position {self.pos + 1}, line {self.line}')
 
   def split(self):
     while True:

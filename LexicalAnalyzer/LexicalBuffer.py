@@ -4,11 +4,11 @@ __all__ = ['LexicalBuffer']
 
 
 class LexicalBuffer(object):
-  alphabet_pattern = re.compile(r'^[a-zA-Z\d]$')
-  word_pattern = re.compile(r'^[a-zA-Z\d]*$')
+  alphabet_pattern = re.compile(r'^[a-z\d]$')
+  word_pattern = re.compile(r'^[a-z\d]*$')
 
-  id_pattern = re.compile(r'^[a-zA-z][a-zA-Z\d]*$')
-  delimiter_pattern = re.compile(r'^[:;,()+\-*/=><]$')
+  id_pattern = re.compile(r'^[a-z][a-z\d]*$')
+  delimiter_pattern = re.compile(r'^[:;,\.()+\-*/=><]$')
 
   white_space_pattern = re.compile(r'[ \n\t]')
   compose_delimiter_pattern = re.compile(r'^[:<>]=$|^[=<]>$')
@@ -16,9 +16,9 @@ class LexicalBuffer(object):
   booleans_one = ['and', 'or']
   booleans_two = ['not']
   reserved_words = ['program', 'begin', 'end', 'var', 'integer', 
-                          'boolean', 'procedure', 'function', 'read', 
-                          'write', 'for', 'to', 'do', 'repeat', 'until', 
-                          'while', 'if', 'then','eles']
+                    'boolean', 'procedure', 'function', 'read', 
+                    'write', 'for', 'to', 'do', 'repeat', 'until', 
+                    'while', 'if', 'then','else']
   relationals = ['<', '>', '=', '<>', '<=', '>=']
   operators = ['+', '-', '*', '/']
 
