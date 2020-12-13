@@ -1,8 +1,7 @@
-from .ScopeManager import ScopeManager
 
 class SymbolsHandler(object):
-  def __init__(self):
-    self.scope_manager = ScopeManager()
+  def __init__(self, scope_manager):
+    self.scope_manager =  scope_manager
     self.previous_scope_name = ''
     self.current_scope_name = 'global'
     self.__next_action = self.__analyze # estado a ser executado no momento

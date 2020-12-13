@@ -11,10 +11,10 @@ class Lexical(object):
     self.pos = 0
 
   def __add_buffer_to_tokens(self, group : str):
-    self.tokens.append((str(self.buffer), group))
+    self.tokens.append([str(self.buffer), group])
 
   def __add_to_tokens(self, symbol, group : str):
-    self.tokens.append((str(symbol), group))
+    self.tokens.append([str(symbol), group])
 
   def __handle_buffer(self):
     if len(self.buffer) == 0: return

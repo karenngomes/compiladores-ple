@@ -1,0 +1,2 @@
+class StatesChain(object):
+    pass

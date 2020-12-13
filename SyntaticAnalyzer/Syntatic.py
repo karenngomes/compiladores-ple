@@ -1,5 +1,6 @@
 import csv, sys
 from .SymbolsHandler import SymbolsHandler
+from .ScopeManager import ScopeManager
 
 class Syntatic(object):
   special_terminals = ['intnum', 'id', 'relacao', 'operador', 'boolean1', 'boolean2']
@@ -14,7 +15,7 @@ class Syntatic(object):
     self.current_token = 0
     self.syntatic_table = self.__read_table()
     self.symbols_table = None
-    self.symbols_handler = SymbolsHandler()
+    self.symbols_handler = SymbolsHandler(ScopeManager())
     self.stack = ['$', '<programa>']
 
   def stack_pop(self):
