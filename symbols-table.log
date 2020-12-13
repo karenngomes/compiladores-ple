@@ -22,6 +22,7 @@ umprocedimento |      id       |   procedure   |    global     |     None      |
 
 -----lexema----------token----------category---------scope------------type-----------value------
        x       |      id       |   variable    |   outroproc   |    integer    |     None      |
+__begin = 9,   __call = None
 
 -----lexema----------token----------category---------scope------------type-----------value------
        x       |      id       |   variable    |  maisumproc   |    integer    |     None      |

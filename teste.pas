@@ -37,6 +37,9 @@ program teste;
 	begin	
 		funcvar := 1;
 	end;
+
+
+
 begin
     entrada := 15 + 15 * 12;
     

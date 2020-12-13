@@ -1,6 +1,7 @@
 import csv, sys
 from .SymbolsHandler import SymbolsHandler
 from .ScopeManager import ScopeManager
+from .JumpMaker import JumpMaker
 
 class Syntatic(object):
   special_terminals = ['intnum', 'id', 'relacao', 'operador', 'boolean1', 'boolean2']
@@ -12,10 +13,11 @@ class Syntatic(object):
   def __init__(self, tokens):
     self.tokens = tokens
     self.tokens.append(('$', 'end'))
-    self.current_token = 0
+    self.current_token_index = 0
     self.syntatic_table = self.__read_table()
-    self.symbols_table = None
-    self.symbols_handler = SymbolsHandler(ScopeManager())
+    self.scope_manager = ScopeManager()
+    self.symbols_handler = SymbolsHandler(self.scope_manager)
+    self.jump_maker = JumpMaker(tokens)
     self.stack = ['$', '<programa>']
 
   def stack_pop(self):
@@ -32,17 +34,18 @@ class Syntatic(object):
     while(len(self.stack) > 0):
       #print(self.stack, end='    ')
       top = self.stack_pop()
-      current = self.tokens[self.current_token]
+      current = self.tokens[self.current_token_index]
       #print(f'current: {current[0]}')
       if self.match(top, current):
-        self.current_token += 1
+        self.current_token_index += 1
         self.symbols_handler.analyze(current)
+        #TODO: testar
+        self.jump_maker.analyze(current, self.current_token_index)
       elif self.is_non_terminal(top):
         self.__expand_production(top, current)
       else:
         raise Exception(f'SyntaticError: Expecting {top[0]}, got {current[0]}.')
-    self.symbols_table = self.symbols_handler.scope_manager
-    return self.symbols_table
+    return self.scope_manager
 
   def is_non_terminal(self, top):
     return top[0] == '<' and top[len(top) - 1] == '>'

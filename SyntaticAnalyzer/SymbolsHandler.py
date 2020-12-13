@@ -11,6 +11,7 @@ class SymbolsHandler(object):
     """
     Executa a máquina de estado, recebe um token e muda o estado atual da máquina (self.__next_action)
     """
+    #TODO: modificar tabela de simbolos para guardar __begin __call
     self.__next_action(_token)
 
   def __analyze(self, _token):
