@@ -9,7 +9,7 @@ class ScopeManager(object):
     """Cria um novo escopo
 
     register = True - salva a referencia do novo escopo
-    push     = True - adiciona o novo escopo à pilha    
+    push     = True - adiciona o novo escopo à pilha
     """
     s = SymbolsTable(name)
     if register:
@@ -19,7 +19,7 @@ class ScopeManager(object):
     return s
 
   def __getitem__(self, key):
-    return self.scopes[key]
+  return self.scopes[key]
 
   def push_in_stack(self, scope):
     self.scope_stack.append(scope)
