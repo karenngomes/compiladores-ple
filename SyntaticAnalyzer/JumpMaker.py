@@ -12,7 +12,7 @@ class JumpMaker(object):
         self.stack.pop()
 
     def analyze(self, token, index):
-        if len(stack) is 0 : # se pilha esta vazia o programa acabou
+        if len(self.stack) == 0: # se pilha esta vazia o programa acabou
             return
             
         if token[0] in ['if', 'while', 'repeat', 'for']:

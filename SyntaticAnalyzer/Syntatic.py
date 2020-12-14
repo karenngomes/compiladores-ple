@@ -1,6 +1,6 @@
 import csv, sys
 from .SymbolsHandler import SymbolsHandler
-from .ScopeManager import ScopeManager
+from scope import ScopeManager
 from .JumpMaker import JumpMaker
 
 class Syntatic(object):

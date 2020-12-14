@@ -1,7 +1,8 @@
+from scope import Entry
 
 class SymbolsHandler(object):
   def __init__(self, scope_manager):
-    self.scope_manager =  scope_manager
+    self.scope_manager = scope_manager
     self.previous_scope_name = ''
     self.current_scope_name = 'global'
     self.__next_action = self.__analyze # estado a ser executado no momento
@@ -32,17 +33,10 @@ class SymbolsHandler(object):
     """
     symbol, token = _token
     scope = self.scope_manager.create_scope(symbol)
-    self.scope_manager.push_in_stack(scope) 
+    self.scope_manager.push_in_stack(scope)
     self.__next_action = self.__prepare_parameter_declaration
     previous_scope = self.scope_manager.get_in_stack_from_top(1)
-    previous_scope.add_entry({
-      'lexema': symbol,
-      'token' : token,
-      'category': '',
-      'scope': previous_scope.scope,
-      'type': None,
-      'value': None,
-    })
+    previous_scope.add_entry(Entry(symbol, token, '', previous_scope.scope_name, None))
 
   def __prepare_parameter_declaration(self, _token):
     """
@@ -74,10 +68,10 @@ class SymbolsHandler(object):
     previous_scope = self.scope_manager.get_in_stack_from_top(1)  # nome do escopo onde a rotina está sendo declarada
     entry = previous_scope[self.scope_manager.get_stack_top_name()]  # o escopo atual tem o mesmo nome da rotina
     if _token[0] == ';': # so pode ser procedimento
-      entry['category'] = 'procedure'
+      entry.category = 'procedure'
     elif _token[0] == ':': #so poder ser funcao
-      entry['category'] = 'function'
-      entry['type'] = 'integer' # todas as funcoes sao inteiras
+      entry.category = 'function'
+      entry.type = 'integer' # todas as funcoes sao inteiras
     self.__next_action = self.__analyze
 
   def __prepare_more_var_declaration(self, _token):
@@ -101,16 +95,8 @@ class SymbolsHandler(object):
       self.__next_action = self.__get_var_type
     else: # li <id>
       scope = self.scope_manager.get_stack_top()
-      self.action_buffer.append(
-        (scope.add_entry, {
-          'lexema': symbol,
-          'token' : token,
-          'category': 'variable',
-          'scope': scope.scope,
-          'type': None,
-          'value': None,
-        })
-      )
+      e = Entry(symbol, token, 'variable', scope.scope_name, None, None)
+      self.action_buffer.append((scope.add_entry, e))
 
   def __get_var_type(self, _token):
     """Estado intermediário da maquina de estado.
@@ -122,8 +108,8 @@ class SymbolsHandler(object):
     """
     symbol = _token[0]
     while len(self.action_buffer) > 0:
-      function, arg = self.action_buffer.pop()
-      arg['type'] = symbol
-      function(arg)
+      function, entry = self.action_buffer.pop()
+      entry.type = symbol
+      function(entry)
     self.__next_action = self.__prepare_more_var_declaration
 
