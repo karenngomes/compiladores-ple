@@ -102,7 +102,7 @@ class SymbolsHandler(object):
     """Estado intermediário da maquina de estado.
 
       Esse estado esvazia o action_buffer. Nele ficam armazenadas
-      as informações das variaveis declaradas e a função para adicioná-las 
+      as informações das variaveis declaradas e a função para adicioná-las
       ao seu respectivo escopo. A adicão ao escopo é feita nesta função, após
       se saber o tipo dessas variáveis
     """

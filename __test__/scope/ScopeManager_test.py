@@ -36,7 +36,7 @@ def test_push_in_stack():
         assert scope == top, f'{scope.scope_name} scope should be on top'
 
 def test_stack():
-    with manager_context() as (sm, scope):
+    with manager_context(push=True) as (sm, scope):
         top = sm.get_stack_top()
         name = sm.get_stack_top_name()
         pop1 = sm.pop_stack()

@@ -4,8 +4,8 @@ from utils import Path
 main_path = str(Path().script_dir())
 sys_path.append(main_path)
 
-from LexicalAnalyzer import Lexical
-from SyntaticAnalyzer import Syntatic
+from lexicalanalyzer import Lexical
+from syntaticanalyzer import Syntatic
 
 
 if main_path[len(main_path) - 1] != '/':

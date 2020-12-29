@@ -22,7 +22,7 @@ class Syntatic(object):
 
   def stack_pop(self):
     return self.stack.pop()
-  
+
   def stack_push(self, item):
     if type(item) == type([]):
       for i in item:
@@ -49,7 +49,7 @@ class Syntatic(object):
 
   def is_non_terminal(self, top):
     return top[0] == '<' and top[len(top) - 1] == '>'
-  
+
   def __expand_production(self, top, current):
     production = self.__get_production(top, current)
     if production == '':
@@ -81,7 +81,7 @@ class Syntatic(object):
     return top in self.terminals
 
   def __read_table(self):
-    with open('SyntaticAnalyzer/syntatic-table.csv') as csvfile:
+    with open('syntaticanalyzer/syntatic-table.csv') as csvfile:
       table = csv.DictReader(csvfile)
       temp = list(table)
       table = self.__format_table(temp)
@@ -103,7 +103,3 @@ class Syntatic(object):
     row[','] = row[','].replace('|', ',')
 
 
-
-if __name__ == '__main__':
-  # read_table()
-  pass

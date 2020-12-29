@@ -19,7 +19,7 @@ class ScopeManager(object):
     return s
 
   def __getitem__(self, key):
-  return self.scopes[key]
+    return self.scopes[key]
 
   def push_in_stack(self, scope):
     self.scope_stack.append(scope)
