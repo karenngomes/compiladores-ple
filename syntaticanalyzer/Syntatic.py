@@ -103,3 +103,4 @@ class Syntatic(object):
     row[','] = row[','].replace('|', ',')
 
 
+  

@@ -1,4 +1,5 @@
 from .states import ExpressionChain
+from syntaticanalyzer import JumpMaker
 
 class Semanthic(object):
     def __init__(self, tokens, scope_manager):
@@ -7,8 +8,34 @@ class Semanthic(object):
         self.scope_manager = scope_manager
 
     def analyze(self):
-        index = 0
+        # inicia a partir do begin do corpo, seu indice esta no token <programa>
+        index = self.tokens[0][JumpMaker.TOKEN_POS_INDEX]
         while index < len(self.tokens):
+            token = self.tokens[index]
+            
+            if token[0] == "read":
+                chamar ReadChain(self.scope_manager, token)
+            
+            elif token[0] == "write":
+                chamar WriteChain(self.scope_manager, token)
+
+            elif token[0] == "for":
+                chamar ForChain(self.scope_manager, token)
+
+            elif token[0] == "repeat":
+                chamar RepeatChain(self.scope_manager, token)
+            
+            elif token[0] == "while":
+                    chamar WhileChain(self.scope_manager, token)
+
+            elif token[0] == "if":
+                chamar IfChain(self.scope_manager, token)
+            
+            elif token[1] == "id" and self.tokens[index + 1][] == ":=":
+                chamar AtribuicaoChain(self.scope_manager, token)
+            
+            else: # procedimento
+                chamar ProcedureChain(self.scope_manager, token)
 
             index += 1
 
@@ -18,6 +45,3 @@ class Semanthic(object):
             value = exp_chain.run(tokens[index])
             if exp_chain.has_done(): break
             index += 1
-
-
-
