@@ -7,7 +7,7 @@ class Entry(object):
     self.category = category
     self.scope = scope
     self.type = _type
-    self.value = value
+    self.value = value # integer
 
   def __str__(self):
     value = self.value

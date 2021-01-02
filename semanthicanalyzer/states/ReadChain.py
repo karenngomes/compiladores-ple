@@ -1,8 +1,11 @@
-from SemanthicAnalyzer.states.StatesChain import StatesChain
+from semanthicanalyzer.states.StatesChain import StatesChain
+
+__all__ = ['ReadChain']
 
 class ReadChain(StatesChain):
     def __init__(self, *args, **kwargs):
-        super.__init__(self, args, kwargs)
+        super().__init__(*args, **kwargs)
+        self.state = self.__begin
         self.id_list = []
 
     def __begin(self, token):
@@ -17,13 +20,9 @@ class ReadChain(StatesChain):
     def __end(self, token):
         for entry in self.id_list:
             value = input()
-            if str.isnumeric(value):
-                value = int(value)
-                if value >= 0:
-                    entry.value = value
-                else:
-                    raise Exception(f'Read espera números inteiros positivos');
+            if value.isnumeric():
+                entry.value = int(value)
             else:
-                raise Exception(f'Read espera números inteiros positivos');
+                raise Exception(f'Read espera números inteiros')
 
-        self.__finalize() # ramo da maquina de estado chegou ao fim, precisa executar de onde parou
+        self._finalize() # ramo da maquina de estado chegou ao fim, precisa executar de onde parou

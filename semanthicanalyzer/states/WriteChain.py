@@ -1,4 +1,4 @@
-from SemanthicAnalyzer.states.StatesChain import StatesChain
+from semanthicanalyzer.states.StatesChain import StatesChain
 
 class WriteChain(StatesChain):
     def __init__(self, *args, **kwargs):
@@ -18,4 +18,4 @@ class WriteChain(StatesChain):
         for entry in self.id_list:
             print(entry.value)
         
-        self.__finalize() # ramo da maquina de estado chegou ao fim, precisa executar de onde parou
+        self._finalize() # ramo da maquina de estado chegou ao fim, precisa executar de onde parou

@@ -1,8 +1,11 @@
 from semanthicanalyzer.states.StatesChain import StatesChain
 
+__all__ = ['ExpressionChain']
+
 class ExpressionChain(StatesChain):
     def __init__(self, *args, **kwargs):
-        super.__init__(self, args, kwargs)
+        super().__init__(*args, **kwargs)
+        self.state = self.__begin
         self.accumulated_value = None
         self.operator = None
 
@@ -21,7 +24,7 @@ class ExpressionChain(StatesChain):
             else:
                 raise Exception(f'Expressao espera uma variável inteira e recebeu {entry.category} do tipo {entry.type}')
         else:
-            value = token[0]
+            value = int(token[0])
 
         if self.accumulated_value is None:
             self.accumulated_value = value
@@ -33,16 +36,16 @@ class ExpressionChain(StatesChain):
             self.state = self.__begin
             self.operator = token[0]
         else:
-            self.__finalize() # ramo da maquina de estado chegou ao fim, precisa executar de onde parou
+            self._finalize() # ramo da maquina de estado chegou ao fim, precisa executar de onde parou
             return self.accumulated_value
 
     def solve_operation(self, op1, op2):
-        if self.operator is '+':
+        if self.operator == '+':
             return op1 + op2
-        elif self.operator is '-':
+        elif self.operator == '-':
             return op1 - op2
-        elif self.operator is '*':
+        elif self.operator == '*':
             return op1 * op2
-        elif self.operator is '/':
+        elif self.operator == '/':
             return op1 // op2 # divisao inteira
 

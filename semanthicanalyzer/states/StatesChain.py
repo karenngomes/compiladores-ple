@@ -1,6 +1,5 @@
 class StatesChain(object):
     def __init__(self, scope_manager):
-        self.state = self.__begin
         self.scope_manager = scope_manager
         self.__done = False # determina se o ramo da maquina de estado chegou num estado final
     
@@ -10,8 +9,8 @@ class StatesChain(object):
     def has_done(self):
         return self.__done
 
-    def __finalize(self):
+    def _finalize(self):
         self.__done = True
 
     def run(self, token):
-        self.state(token)
+        return self.state(token)
