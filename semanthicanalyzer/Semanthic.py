@@ -23,6 +23,9 @@ class Semanthic(object):
                 chamar ForChain(self.scope_manager, token)
 
             elif token[0] == "repeat":
+    
+        if token[1] == 'attribut'
+
                 chamar RepeatChain(self.scope_manager, token)
             
             elif token[0] == "while":
@@ -31,8 +34,8 @@ class Semanthic(object):
             elif token[0] == "if":
                 chamar IfChain(self.scope_manager, token)
             
-            elif token[1] == "id" and self.tokens[index + 1][] == ":=":
-                chamar AtribuicaoChain(self.scope_manager, token)
+            elif token[1] == "id" and self.tokens[index + 1][1] == "attribution"
+                chamar AttributionChain(self.scope_manager, token)
             
             else: # procedimento
                 chamar ProcedureChain(self.scope_manager, token)

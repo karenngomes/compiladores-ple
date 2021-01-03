@@ -1,12 +1,12 @@
 class ConditionChain(StatesChain):
     def __init__(self, *args, **kwargs):
-        super.__init__(self, args, kwargs)
+        super().__init__(*args, state=self.__begin, **kwargs)
         self.accumulated_value = None
         self.operator = None
 
     def __begin(self, token):
-        if (token[1] == "id" and token[1] == "integer") or token[1] == "intnum"
-            
+        if (token[1] == "id" and token[1] == "integer") or token[1] == "intnum":
+
 
         """
         if num ou id seguido de operator
@@ -35,6 +35,4 @@ class ConditionChain(StatesChain):
                 if exp_chain.has_done(): break
                 index += 1
             
-
-
         return value

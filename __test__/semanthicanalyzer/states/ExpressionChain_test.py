@@ -1,5 +1,5 @@
 import pytest
-from semanthicanalyzer.states.ExpressionChain import ExpressionChain
+from semanthicanalyzer.states import ExpressionChain
 from scope import ScopeManager, Entry
 
 # a + 2 * 4 - b / c
@@ -10,21 +10,15 @@ token_list = [['a', 'id'], ['+', 'operator'], ['2', 'intnum'],
 
 sm = ScopeManager()
 gbl = sm['global']
-# 5 + 2 * 0 - 200 // 3 = -66
+# 5 + 2 * 0 - 200 // 3 = -4
 gbl.add_entry(Entry('a', 'id', 'variable', 'global', 'integer', 5))
 gbl.add_entry(Entry('b', 'id', 'variable', 'global', 'integer', 10))
 gbl.add_entry(Entry('c', 'id', 'variable', 'global', 'integer', 3))
 
-def exec():
-    index = 0
-    exp_chain = ExpressionChain(sm)
-    while True:
-        value = exp_chain.run(token_list[index])
-        if exp_chain.has_done(): break
-        index += 1
-    return value
 
 def test_chain():
-    value = exec()
+    index = [0]
+    exp_chain = ExpressionChain(sm, token_list, index)
+    value = exp_chain.exec()
     
     assert value == -4 

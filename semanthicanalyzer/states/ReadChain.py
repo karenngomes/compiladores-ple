@@ -1,17 +1,15 @@
-from semanthicanalyzer.states.StatesChain import StatesChain
+from semanthicanalyzer.states import StatesChain
 
-__all__ = ['ReadChain']
 
 class ReadChain(StatesChain):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.state = self.__begin
+        super().__init__(*args, state=self.__begin, **kwargs)
         self.id_list = []
 
     def __begin(self, token):
         if token[0] == ')':
             self.state = self.__end
-        
+
         if token[1] == 'id':
             # busca na tabela de simbolos e levanta erro se nao existir em nenhum escopos
             entry = self.scope_manager.search_identifier(token[0])

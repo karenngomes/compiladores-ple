@@ -1,6 +1,5 @@
-from semanthicanalyzer.states.StatesChain import StatesChain
+from semanthicanalyzer.states import StatesChain
 
-__all__ = ['ExpressionChain']
 
 class ExpressionChain(StatesChain):
     def __init__(self, *args, **kwargs):

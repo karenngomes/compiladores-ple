@@ -1,6 +1,6 @@
 from .states import StatesChain
 
-class ConditionChain(StatesChain):
+class BoolExpressionChain(StatesChain):
     def __init__(self, *args, **kwargs):
         super.__init__(self, args, kwargs)
         self.accumulated_value = None

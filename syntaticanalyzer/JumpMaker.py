@@ -1,4 +1,4 @@
-class JumpMaker(object):
+xclass JumpMaker(object):
     TOKEN_POS_INDEX = 2
 
     def __init__(self, tokens):
