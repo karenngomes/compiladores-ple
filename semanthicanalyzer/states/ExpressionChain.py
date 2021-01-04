@@ -3,8 +3,7 @@ from semanthicanalyzer.states import StatesChain
 
 class ExpressionChain(StatesChain):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.state = self.__begin
+        super().__init__(*args, state=self.__begin, **kwargs)
         self.accumulated_value = None
         self.operator = None
 
@@ -35,7 +34,10 @@ class ExpressionChain(StatesChain):
             self.state = self.__begin
             self.operator = token[0]
         else:
-            self._finalize() # ramo da maquina de estado chegou ao fim, precisa executar de onde parou
+            self._finalize()  # ramo da maquina de estado chegou ao fim, precisa executar de onde parou
+            # impede que seja somado (+1) duas vezes no indice quando ExpressionChain é chamado por 
+            # outra chain
+            self.index[0] -= 1
             return self.accumulated_value
 
     def solve_operation(self, op1, op2):

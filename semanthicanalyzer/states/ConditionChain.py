@@ -6,7 +6,8 @@ class ConditionChain(StatesChain):
 
     def __begin(self, token):
         if (token[1] == "id" and token[1] == "integer") or token[1] == "intnum":
-
+            pass # chamar relational 
+        #vou pegar um lanche
 
         """
         if num ou id seguido de operator

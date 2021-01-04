@@ -17,8 +17,13 @@ gbl.add_entry(Entry('c', 'id', 'variable', 'global', 'integer', 3))
 
 
 def test_chain():
-    index = [0]
-    exp_chain = ExpressionChain(sm, token_list, index)
+    index = [[0], [0]]
+    exp_chain = ExpressionChain(sm, token_list, index[0])
+    exp_chain2 = ExpressionChain(sm, [['4', 'intnum'],[';', 'delimiter']],
+                                 index[1])
+
     value = exp_chain.exec()
+    value2 = exp_chain2.exec()
     
     assert value == -4 
+    assert value2 == 4
