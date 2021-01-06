@@ -19,7 +19,7 @@ gbl.add_entry(Entry('a', 'id', 'variable', 'global', 'integer', 5))
 gbl.add_entry(Entry('b', 'id', 'variable', 'global', 'integer', 10))
 gbl.add_entry(Entry('c', 'id', 'variable', 'global', 'integer', 3))
 
-def test_chain():
+def test_attribution():
     index = [0]
     attr_chain = AttributionChain(sm, token_list, index)
     value = attr_chain.exec()

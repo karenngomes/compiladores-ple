@@ -44,9 +44,18 @@ begin
     entrada := 15 + 15 * 12;
     
 	if (entrada > aux) then
-    begin 
+    	begin 
         aux := 5;
-    end;
+    	end
+	else
+		begin
+		aux := 10;
+		end;
+
+	if (b and y) then
+	begin
+		x := a + b;
+	end;
 	
 	umprocedimento;
 

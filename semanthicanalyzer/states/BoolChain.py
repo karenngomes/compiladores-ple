@@ -1,8 +1,8 @@
-from .states import StatesChain
+from .StatesChain import StatesChain
 
-class BoolExpressionChain(StatesChain):
+class BoolChain(StatesChain):
     def __init__(self, *args, **kwargs):
-        super.__init__(self, args, kwargs)
+        super().__init__(*args, state=self.__begin, **kwargs)
         self.accumulated_value = None
         self.is_inverted = False # se um not inverteu a saida
         self.operator = None
@@ -37,22 +37,19 @@ class BoolExpressionChain(StatesChain):
         else: # eh um boolean2(not)
             self.is_inverted = not self.is_inverted
 
-       
-
     def __resolve_operator(self, token):
-        if token[1] == "operator":
+        if token[1] == "boolean1":
             self.state = self.__begin
             self.operator = token[0]
         else:
-            self.__finalize() # ramo da maquina de estado chegou ao fim, precisa executar de onde parou
+            self._finalize() # ramo da maquina de estado chegou ao fim, precisa executar de onde parou
+            # impede que seja somado (+1) duas vezes no indice quando ExpressionChain é chamado por 
+            # outra chain
+            self.index[0] -= 1
             return self.accumulated_value
 
     def solve_operation(self, op1, op2):
-        if self.operator is '+':
-            return op1 + op2
-        elif self.operator is '-':
-            return op1 - op2
-        elif self.operator is '*':
-            return op1 * op2
-        elif self.operator is '/':
-            return op1 // op2 # divisao inteira
+        if self.operator == 'and':
+            return op1 and op2
+        elif self.operator == 'or':
+            return op1 or op2

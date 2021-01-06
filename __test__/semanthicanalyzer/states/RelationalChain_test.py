@@ -13,6 +13,7 @@ glb = sm['global']
 a = Entry('a', 'id', 'variable', 'global', 'integer', 1)
 glb.add_entry(a)
 
+# a + 3 > b and c > b + 1
 
 def test_relational():
     index = [[0], [0]]

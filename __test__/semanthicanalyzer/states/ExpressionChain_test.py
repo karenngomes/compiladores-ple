@@ -16,7 +16,7 @@ gbl.add_entry(Entry('b', 'id', 'variable', 'global', 'integer', 10))
 gbl.add_entry(Entry('c', 'id', 'variable', 'global', 'integer', 3))
 
 
-def test_chain():
+def test_expression():
     index = [[0], [0]]
     exp_chain = ExpressionChain(sm, token_list, index[0])
     exp_chain2 = ExpressionChain(sm, [['4', 'intnum'],[';', 'delimiter']],

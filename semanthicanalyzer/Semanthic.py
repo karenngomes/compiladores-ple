@@ -3,15 +3,15 @@ from syntaticanalyzer import JumpMaker
 
 class Semanthic(object):
     def __init__(self, tokens, scope_manager):
-        self.current_token_index = 0
-        self.tokens = tokens
+        self.index = [0]
+        self.token_list = tokens
         self.scope_manager = scope_manager
 
     def analyze(self):
         # inicia a partir do begin do corpo, seu indice esta no token <programa>
-        index = self.tokens[0][JumpMaker.TOKEN_POS_INDEX]
-        while index < len(self.tokens):
-            token = self.tokens[index]
+        index = self.token_list[0][JumpMaker.TOKEN_POS_INDEX]
+        while index < len(self.token_list):
+            token = self.token_list[index]
             
             if token[0] == "read":
                 chamar ReadChain(self.scope_manager, token)
@@ -34,7 +34,7 @@ class Semanthic(object):
             elif token[0] == "if":
                 chamar IfChain(self.scope_manager, token)
             
-            elif token[1] == "id" and self.tokens[index + 1][1] == "attribution"
+            elif token[1] == "id" and self.token_list[index + 1][1] == "attribution"
                 chamar AttributionChain(self.scope_manager, token)
             
             else: # procedimento

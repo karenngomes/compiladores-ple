@@ -27,7 +27,8 @@ def main(file_path=main_path+'teste.pas', output=True):
 
 def print_tokens(tokens):
   with open(main_path + 'tokens.log', 'w') as log:
-    log.write(str(tokens))
+    for i in tokens:
+          log.write(str(i) + ',\n')
 
 def print_table(table):
   with open(main_path + 'symbols-table.log', 'w') as log:

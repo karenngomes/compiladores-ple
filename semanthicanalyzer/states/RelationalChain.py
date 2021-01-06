@@ -9,12 +9,9 @@ class RelationalChain(StatesChain):
 
     def __begin(self, token):
         self.state = self.__resolve_relational
-        if token[1] == 'id':
-            exp_chain = ExpressionChain(self.scope_manager, self.token_list, self.index)
-            value = exp_chain.exec()
-        else:
-            value = int(token[0])
-
+        exp_chain = ExpressionChain(self.scope_manager, self.token_list, self.index)
+        value = exp_chain.exec()
+    
         if self.first_operand is None:
             self.first_operand = value
         else:

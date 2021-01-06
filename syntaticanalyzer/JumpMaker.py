@@ -1,11 +1,11 @@
-xclass JumpMaker(object):
+class JumpMaker(object):
     TOKEN_POS_INDEX = 2
 
     def __init__(self, tokens):
         self.stack = []
         self.tokens = tokens
 
-    def push_stack(self, token): 
+    def push_stack(self, token):
         self.stack.append(token)
 
     def pop_stack(self, token):
@@ -24,6 +24,7 @@ xclass JumpMaker(object):
                 next_token = self.tokens[index + 1] # token depois do end
                 if next_token[0] == 'else':
                     pair.append(next_token[self.TOKEN_POS_INDEX]) # adiciona ao if atual o indice do else que faz par com ele
+                else:
             else:
                 token.append(pair[self.TOKEN_POS_INDEX]) # adiciona ao end atual o indice do inicio do seu loop
 
