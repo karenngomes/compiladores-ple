@@ -19,8 +19,12 @@ class ExpressionChain(StatesChain):
             # verifica se eh uma variable do tipo inteiro
             if entry.category == "variable" and entry.type == "integer": 
                 value = entry.value
+            #elif entry.category == "function":
+            #    value = entry.value
+            #    if value is None:
+            #       raise Exception(f'Null Value')
             else:
-                raise Exception(f'Expressao espera uma variável inteira e recebeu {entry.category} do tipo {entry.type}')
+                raise Exception(f'Expressao espera uma função ou variável inteira e recebeu {entry.category} do tipo {entry.type}')
         else:
             value = int(token[0])
 
@@ -30,7 +34,7 @@ class ExpressionChain(StatesChain):
             self.accumulated_value = self.solve_operation(self.accumulated_value, value)
 
     def __resolve_operator(self, token):
-        if token[1] == "operator":
+        if token[1] == "operador":
             self.state = self.__begin
             self.operator = token[0]
         else: # achou )

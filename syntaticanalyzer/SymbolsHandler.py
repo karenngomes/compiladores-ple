@@ -19,7 +19,10 @@ class SymbolsHandler(object):
     """
     Estado inicial e estado final da maquina de estado.
     """
-    symbol, token = _token
+    try:
+      symbol, token = _token
+    except ValueError:
+      symbol, token, token_pos = _token
     if symbol == 'procedure' or symbol == 'function':
       self.__next_action = self.__change_scope
     elif symbol == 'begin':

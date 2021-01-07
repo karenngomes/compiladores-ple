@@ -1,4 +1,4 @@
-from .states import ExpressionChain
+from semanthicanalyzer import states
 from syntaticanalyzer import TOKEN_POS_INDEX
 
 class Semanthic(object):
@@ -14,31 +14,33 @@ class Semanthic(object):
             token = self.token_list[self.index[0]]
 
             if token[0] == "read":
-                chamar ReadChain(self.scope_manager, token)
+                states.ReadChain(self.scope_manager, self.token_list, self.index).exec()
 
             elif token[0] == "write":
-                chamar WriteChain(self.scope_manager, token)
+                states.WriteChain(self.scope_manager, self.token_list, self.index).exec()
 
             elif token[0] == "for":
-                chamar ForChain(self.scope_manager, token)
+                #ForChain(self.scope_manager, self.token_list, self.index).exec()
+                pass
 
-            elif token[0] == "repeat":
-                chamar RepeatChain(self.scope_manager, token)
+            elif token[0] == "until":
+                states.RepeatChain(self.scope_manager, self.token_list, self.index).exec()
 
             elif token[0] == "while":
-                chamar WhileChain(self.scope_manager, token)
+                states.WhileChain(self.scope_manager, self.token_list, self.index).exec()
 
             elif token[0] == "if":
-                chamar IfChain(self.scope_manager, token)
+                states.IfChain(self.scope_manager, self.token_list, self.index).exec()
 
             elif token[0] == 'else' or token[0] == 'end': # checar JumpMaker
-                self.index[0] = token[TOKEN_POS_INDEX]
+                self.index[0] = token[TOKEN_POS_INDEX] - 1
 
-            elif token[1] == "id" and self.token_list[self.index[0] + 1][1] == "attribution"
-                chamar AttributionChain(self.scope_manager, token)
+            elif token[1] == "id" and self.token_list[self.index[0] + 1][1] == "attribution":
+                states.AttributionChain(self.scope_manager, self.token_list, self.index).exec()
 
             else: # procedimento
-                chamar ProcedureChain(self.scope_manager, token)
+                #states.ProcedureChain(self.scope_manager, self.token_list, self.index).exec()
+                pass
 
             self.index[0] += 1
 

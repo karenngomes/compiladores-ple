@@ -37,10 +37,9 @@ class Syntatic(object):
       current = self.tokens[self.current_token_index]
       #print(f'current: {current[0]}')
       if self.match(top, current):
+        self.jump_maker.analyze(current, self.current_token_index)
         self.current_token_index += 1
         self.symbols_handler.analyze(current)
-        #TODO: testar
-        self.jump_maker.analyze(current, self.current_token_index)
       elif self.is_non_terminal(top):
         self.__expand_production(top, current)
       else:

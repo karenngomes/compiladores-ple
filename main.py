@@ -6,7 +6,7 @@ sys_path.append(main_path)
 
 from lexicalanalyzer import Lexical
 from syntaticanalyzer import Syntatic
-
+from semanthicanalyzer import Semanthic
 
 if main_path[len(main_path) - 1] != '/':
   main_path += '/'
@@ -16,14 +16,18 @@ def main(file_path=main_path+'teste.pas', output=True):
   with open(file, 'r') as file:
     tokens = Lexical(file).split()
     print('Análise Léxica bem sucedida. A lista de tokens gerados está disponível no arquivo tokens.log')
-    #print('\n\n', tokens, '\n\n')
+
     scope_manager = Syntatic(tokens).parse()
-    print('Análise Sintática bem sucedida. A tabela de símbolos  está disponível no arquivo symbols-table.log')
+    print('Análise Sintática bem sucedida. A tabela de símbolos está disponível no arquivo symbols-table.log')
+
+    Semanthic(tokens, scope_manager).analyze()
+    print('Análise Semântica bem sucedida.')
+
     if output:
       print_tokens(tokens)
       print_table(scope_manager)
-  return tokens, scope_manager
 
+  return tokens, scope_manager
 
 def print_tokens(tokens):
   with open(main_path + 'tokens.log', 'w') as log:
@@ -34,11 +38,5 @@ def print_table(table):
   with open(main_path + 'symbols-table.log', 'w') as log:
     log.write(str(table))
 
-
-
 if __name__ == '__main__':
-  main()  
-
-
-
-
+  main()

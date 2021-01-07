@@ -3,9 +3,9 @@ from semanthicanalyzer.states import ExpressionChain
 from scope import ScopeManager, Entry
 
 # a + 2 * 4 - b / c
-token_list = [['a', 'id'], ['+', 'operator'], ['2', 'intnum'],
-              ['*', 'operator'], ['0', 'intnum'], ['-', 'operator'],
-              ['b', 'id'], ['/', 'operator'], ['c', 'id'], [';', 'delimiter']
+token_list = [['a', 'id'], ['+', 'operador'], ['2', 'intnum'],
+              ['*', 'operador'], ['0', 'intnum'], ['-', 'operador'],
+              ['b', 'id'], ['/', 'operador'], ['c', 'id'], [';', 'delimiter']
              ]
 
 sm = ScopeManager()

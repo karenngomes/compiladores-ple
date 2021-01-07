@@ -1,6 +1,6 @@
 -----lexema----------token----------category---------scope------------type-----------value------
-      aux      |      id       |   variable    |    global     |    integer    |     None      
-    entrada    |      id       |   variable    |    global     |    integer    |     None      
+      aux      |      id       |   variable    |    global     |    integer    |      11       
+    entrada    |      id       |   variable    |    global     |    integer    |      10       
        b       |      id       |   variable    |    global     |    boolean    |     None      
        a       |      id       |   variable    |    global     |    boolean    |     None      
 
