@@ -23,8 +23,6 @@ class Semanthic(object):
                 chamar ForChain(self.scope_manager, token)
 
             elif token[0] == "repeat":
-
-            elif token[1] == 'attributtion'
                 chamar RepeatChain(self.scope_manager, token)
 
             elif token[0] == "while":
@@ -33,7 +31,7 @@ class Semanthic(object):
             elif token[0] == "if":
                 chamar IfChain(self.scope_manager, token)
 
-            elif token[0] == 'else':
+            elif token[0] == 'else' or token[0] == 'end': # checar JumpMaker
                 self.index[0] = token[TOKEN_POS_INDEX]
 
             elif token[1] == "id" and self.token_list[self.index[0] + 1][1] == "attribution"
