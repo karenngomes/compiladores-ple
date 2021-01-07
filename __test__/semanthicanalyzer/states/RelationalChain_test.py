@@ -2,10 +2,10 @@ import pytest
 from semanthicanalyzer.states import RelationalChain
 from scope import ScopeManager, Entry
 
-token_list = [['a', 'id'], ['>', 'relational'], 
+token_list = [['a', 'id'], ['>', 'relacao'], 
              ['3', 'intnum'], [';', 'delimiter']]
 token_list2 = [['a', 'id'], ['+', 'operator'], ['2', 'intnum'],
-              ['=', 'relational'], ['3', 'intnum'], 
+              ['=', 'relacao'], ['3', 'intnum'], 
               [';', 'delimiter']]
 
 sm = ScopeManager()

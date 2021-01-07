@@ -3,11 +3,11 @@ from semanthicanalyzer.states import IfChain
 from scope import ScopeManager, Entry
 
 token_list = [['if', 'reserved', 12], ['(', 'delimiter'], ['entrada', 'id'],
-              ['>', 'relacao'], ['aux', 'id'], [')', 'delimiter'], ['then', 'reserved'], 
+              ['>', 'relacao'], ['aux', 'id'], [')', 'delimiter'], ['then', 'reserved'],
               ['begin', 'reserved'],
                     ['aux', 'id'], [':=', 'attribution'], ['5', 'intnum'], [';', 'delimiter'],
               ['end', 'reserved'],
-              ['else', 'reserved'], ['begin', 'reserved'],
+              ['else', 'reserved', 19], ['begin', 'reserved'],
                     ['aux', 'id'], [':=', 'attribution'], ['10', 'intnum'], [';', 'delimiter'],
               ['end', 'reserved'], [';', 'delimiter']]
 
@@ -28,5 +28,5 @@ def test_if():
     e1.value = -10
     if_chain2.exec()
 
-    assert index[0] == 6
-    assert index[1] == 12
+    assert index[0][0] == 7
+    assert index[1][0] == 12

@@ -18,7 +18,7 @@ class RelationalChain(StatesChain):
             self.result = self.solve_operation(self.first_operand, value)
 
     def __resolve_relational(self, token):
-        if token[1] == 'relational':
+        if token[1] == 'relacao':
             self.state = self.__begin
             self.operator = token[0]
         else:

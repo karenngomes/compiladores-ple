@@ -8,7 +8,7 @@ token_list = [['a', 'id'], ['and', 'boolean1'],
 
 # c + 2 = 3 ) 
 token_list2 = [['c', 'id'], ['+', 'operator'], ['2', 'intnum'],
-              ['=', 'relational'], ['3', 'intnum'], 
+              ['=', 'relacao'], ['3', 'intnum'], 
               [')', 'delimiter']]
 
 sm = ScopeManager()

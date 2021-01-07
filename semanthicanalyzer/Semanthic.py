@@ -1,5 +1,5 @@
 from .states import ExpressionChain
-from syntaticanalyzer import JumpMaker
+from syntaticanalyzer import TOKEN_POS_INDEX
 
 class Semanthic(object):
     def __init__(self, tokens, scope_manager):
@@ -9,13 +9,13 @@ class Semanthic(object):
 
     def analyze(self):
         # inicia a partir do begin do corpo, seu indice esta no token <programa>
-        index = self.token_list[0][JumpMaker.TOKEN_POS_INDEX]
-        while index < len(self.token_list):
-            token = self.token_list[index]
-            
+        self.index[0] = self.token_list[0][TOKEN_POS_INDEX]
+        while self.index[0] < len(self.token_list):
+            token = self.token_list[self.index[0]]
+
             if token[0] == "read":
                 chamar ReadChain(self.scope_manager, token)
-            
+
             elif token[0] == "write":
                 chamar WriteChain(self.scope_manager, token)
 
@@ -23,28 +23,24 @@ class Semanthic(object):
                 chamar ForChain(self.scope_manager, token)
 
             elif token[0] == "repeat":
-    
-        if token[1] == 'attribut'
 
+            elif token[1] == 'attributtion'
                 chamar RepeatChain(self.scope_manager, token)
-            
+
             elif token[0] == "while":
-                    chamar WhileChain(self.scope_manager, token)
+                chamar WhileChain(self.scope_manager, token)
 
             elif token[0] == "if":
                 chamar IfChain(self.scope_manager, token)
-            
-            elif token[1] == "id" and self.token_list[index + 1][1] == "attribution"
+
+            elif token[0] == 'else':
+                self.index[0] = token[TOKEN_POS_INDEX]
+
+            elif token[1] == "id" and self.token_list[self.index[0] + 1][1] == "attribution"
                 chamar AttributionChain(self.scope_manager, token)
-            
+
             else: # procedimento
                 chamar ProcedureChain(self.scope_manager, token)
 
-            index += 1
+            self.index[0] += 1
 
-    def expression(self, index):
-        exp_chain = ExpressionChain(self.scope_manager)
-        while True:
-            value = exp_chain.run(tokens[index])
-            if exp_chain.has_done(): break
-            index += 1

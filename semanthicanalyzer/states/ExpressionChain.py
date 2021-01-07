@@ -33,10 +33,12 @@ class ExpressionChain(StatesChain):
         if token[1] == "operator":
             self.state = self.__begin
             self.operator = token[0]
-        else:
+        else: # achou )
             self._finalize()  # ramo da maquina de estado chegou ao fim, precisa executar de onde parou
             # impede que seja somado (+1) duas vezes no indice quando ExpressionChain é chamado por 
-            # outra chain
+            # outra chain que não possui dois delimitadores finais, exemplo: quando AttributionChain
+            # chama a ExpressionChain, a segunda termina em ; e a primeira termina no token inicial
+            # de outro comando.
             self.index[0] -= 1
             return self.accumulated_value
 

@@ -5,7 +5,7 @@ class ConditionChain(StatesChain):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, state=self.__begin, **kwargs)
         self.result = None
-        
+
     def __begin(self, token):
         if (token[1] == 'boolean2'):
             Chain = BoolChain

@@ -45,7 +45,6 @@ class BoolChain(StatesChain):
             self._finalize() # ramo da maquina de estado chegou ao fim, precisa executar de onde parou
             # impede que seja somado (+1) duas vezes no indice quando ExpressionChain é chamado por 
             # outra chain
-            self.index[0] -= 1
             return self.accumulated_value
 
     def solve_operation(self, op1, op2):
