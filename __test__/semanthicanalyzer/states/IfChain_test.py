@@ -1,13 +1,17 @@
 import pytest
 from semanthicanalyzer.states import IfChain
+from syntaticanalyzer import JumpIndex
 from scope import ScopeManager, Entry
 
-token_list = [['if', 'reserved', 12], ['(', 'delimiter'], ['entrada', 'id'],
+if_jump = JumpIndex(small_jump=0, big_jump=12, jump_big=True)
+else_jump = JumpIndex(small_jump=13, big_jump=19, jump_big=True)
+
+token_list = [['if', 'reserved', if_jump], ['(', 'delimiter'], ['entrada', 'id'],
               ['>', 'relacao'], ['aux', 'id'], [')', 'delimiter'], ['then', 'reserved'],
               ['begin', 'reserved'],
                     ['aux', 'id'], [':=', 'attribution'], ['5', 'intnum'], [';', 'delimiter'],
               ['end', 'reserved'],
-              ['else', 'reserved', 19], ['begin', 'reserved'],
+              ['else', 'reserved', else_jump], ['begin', 'reserved'],
                     ['aux', 'id'], [':=', 'attribution'], ['10', 'intnum'], [';', 'delimiter'],
               ['end', 'reserved'], [';', 'delimiter']]
 

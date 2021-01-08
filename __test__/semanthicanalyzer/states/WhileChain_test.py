@@ -1,8 +1,11 @@
 import pytest
 from semanthicanalyzer.states import WhileChain
+from syntaticanalyzer import JumpIndex
 from scope import ScopeManager, Entry
 
-token_list = [['while', 'reserved', 13], ['(', 'delimiter'], ['entrada', 'id'],
+while_jump = JumpIndex(small_jump=0, big_jump=13, jump_big=True)
+
+token_list = [['while', 'reserved', while_jump], ['(', 'delimiter'], ['entrada', 'id'],
               ['>', 'relacao'], ['aux', 'id'], [')', 'delimiter'], ['do', 'reserved'],
               ['begin', 'reserved'],
                     ['aux', 'id'], [':=', 'attribution'], ['5', 'intnum'], [';', 'delimiter'],

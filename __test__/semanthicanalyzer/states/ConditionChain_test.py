@@ -7,7 +7,7 @@ token_list = [['a', 'id'], ['and', 'boolean1'],
              ['b', 'id'], [')', 'delimiter']]
 
 # c + 2 = 3 ) 
-token_list2 = [['c', 'id'], ['+', 'operator'], ['2', 'intnum'],
+token_list2 = [['c', 'id'], ['+', 'operador'], ['2', 'intnum'],
               ['=', 'relacao'], ['3', 'intnum'], 
               [')', 'delimiter']]
 

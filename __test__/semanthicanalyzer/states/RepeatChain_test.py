@@ -1,10 +1,13 @@
 import pytest
 from semanthicanalyzer.states import RepeatChain
+from syntaticanalyzer import JumpIndex
 from scope import ScopeManager, Entry
+
+repeat_jump = JumpIndex(small_jump=5, big_jump=0, jump_big=True)
 
 token_list = [['repeat', 'reserved'], 
                     ['aux', 'id'], [':=', 'attribution'], ['5', 'intnum'], [';', 'delimiter'],
-              ['until', 'reserved', 0], ['(', 'delimiter'], ['entrada', 'id'], 
+              ['until', 'reserved', repeat_jump], ['(', 'delimiter'], ['entrada', 'id'], 
               ['>', 'relacao'], ['aux', 'id'], [')', 'delimiter'], [';', 'delimiter']
              ]
 

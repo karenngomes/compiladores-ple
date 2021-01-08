@@ -33,7 +33,8 @@ class Semanthic(object):
                 states.IfChain(self.scope_manager, self.token_list, self.index).exec()
 
             elif token[0] == 'else' or token[0] == 'end': # checar JumpMaker
-                self.index[0] = token[TOKEN_POS_INDEX] - 1
+                self.index[0] = token[TOKEN_POS_INDEX].get_jump_index()
+                self.index[0] -= 1 # para nao andar dois tokens de uma vez
 
             elif token[1] == "id" and self.token_list[self.index[0] + 1][1] == "attribution":
                 states.AttributionChain(self.scope_manager, self.token_list, self.index).exec()

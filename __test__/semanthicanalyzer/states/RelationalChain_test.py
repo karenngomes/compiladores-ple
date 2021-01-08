@@ -4,7 +4,7 @@ from scope import ScopeManager, Entry
 
 token_list = [['a', 'id'], ['>', 'relacao'], 
              ['3', 'intnum'], [';', 'delimiter']]
-token_list2 = [['a', 'id'], ['+', 'operator'], ['2', 'intnum'],
+token_list2 = [['a', 'id'], ['+', 'operador'], ['2', 'intnum'],
               ['=', 'relacao'], ['3', 'intnum'], 
               [';', 'delimiter']]
 

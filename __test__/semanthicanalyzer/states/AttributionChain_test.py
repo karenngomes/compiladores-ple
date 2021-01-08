@@ -3,9 +3,9 @@ from semanthicanalyzer.states import AttributionChain
 from scope import ScopeManager, Entry
 
 # var := a + 2 * 4 - b / c
-token_list = [['id', 'id'], [':=', 'attribution'], ['a', 'id'], ['+', 'operator'], ['2', 'intnum'],
-              ['*', 'operator'], ['0', 'intnum'], ['-', 'operator'],
-              ['b', 'id'], ['/', 'operator'], ['c', 'id'], [';', 'delimiter']
+token_list = [['id', 'id'], [':=', 'attribution'], ['a', 'id'], ['+', 'operador'], ['2', 'intnum'],
+              ['*', 'operador'], ['0', 'intnum'], ['-', 'operador'],
+              ['b', 'id'], ['/', 'operador'], ['c', 'id'], [';', 'delimiter']
              ]
 
 sm = ScopeManager()

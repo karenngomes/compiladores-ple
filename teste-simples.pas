@@ -1,5 +1,6 @@
 program teste;
 	var entrada, entrada2, aux, result, limiter, limiter2: integer;
+      control1, control2 : boolean;
 
 begin
   limiter := 0;
@@ -8,6 +9,24 @@ begin
     write(limiter2, limiter2, limiter2, limiter2, limiter2, limiter2, limiter2);
     read(aux);
     if (aux > 0) then
+      begin
+        control1 := 1;
+      end
+    else
+      begin
+        control1 := 0;
+      end;
+    if (aux < 5) then
+      begin
+        control2 := 1;
+      end
+    else
+      begin
+        write
+        control2 := 0;
+      end;
+    write(aux, control1, control2);
+    if (control1 and control2) then
       begin
         write(limiter, limiter, limiter, limiter, limiter, limiter, limiter);
         read(entrada, entrada2);

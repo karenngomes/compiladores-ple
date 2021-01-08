@@ -1,3 +1,5 @@
+from syntaticanalyzer import JumpIndex
+
 
 TOKEN_POS_INDEX = 2
 
@@ -23,7 +25,7 @@ class JumpMaker(object):
     def analyze(self, token, index):
         jump_points = ['if', 'else', 'while', 'repeat', 'for', 'program', 'procedure', 'function']
         if token[0] in jump_points:
-            token.append(index)
+            token.append(JumpIndex(small_jump=index))
             self.push_begin_stack(token)
             self.push_end_stack(token)
 
@@ -43,15 +45,24 @@ class JumpMaker(object):
         #TODO: verificar se precisa adiconar uma condicional para o end do corpo do programa
         pair = self.pop_end_stack()
         if pair[0] == 'if' or pair[0] == 'else':
-            pair[TOKEN_POS_INDEX] = index # adiciona dono do end atual o indice do end que faz par com ele
-            token.append(index + 1)  # adiciona o indice do proximo token ao end
+            pair_jump = pair[TOKEN_POS_INDEX] # recupera o indice do end que faz par com o token atual
+            pair_jump.jump_big = True # coloca como padrao pular para o end
+            pair_jump.big_jump_index = index # adiciona esse indice ao token atual
+            token.append(JumpIndex(small_jump=index+1))  # adiciona o indice do proximo token ao end
         elif pair[0] == 'program':
-            token.append(index+1)
+            token.append(JumpIndex(small_jump=index+1)) # faz com que o end do program siga em frente
         else:
-            token.append(pair[TOKEN_POS_INDEX]) # adiciona ao end atual o indice do seu dono
-            pair[TOKEN_POS_INDEX] = index + 1  # adiciona ao token do loop o indice após seu end
+            pair_small_jump = pair[TOKEN_POS_INDEX].small_jump_index
+            token.append(JumpIndex(small_jump=index+1,
+                                   big_jump=pair_small_jump, 
+                                   jump_big=True)) # adiciona ao end atual o indice do seu dono
+
+            pair[TOKEN_POS_INDEX].big_jump_index = index + 1  # adiciona ao token do loop o indice após seu end
+    
     
     def __handle_begin(self, token, index):
         pair = self.pop_begin_stack()
         if pair[0] == 'program':
-            pair[TOKEN_POS_INDEX] = index
+            jump = pair[TOKEN_POS_INDEX]
+            jump.jump_big = True
+            jump.big_jump_index = index
