@@ -1,7 +1,11 @@
 -----lexema----------token----------category---------scope------------type-----------value------
-      aux      |      id       |   variable    |    global     |    integer    |      11       
-    entrada    |      id       |   variable    |    global     |    integer    |      10       
-       b       |      id       |   variable    |    global     |    boolean    |     None      
-       a       |      id       |   variable    |    global     |    boolean    |     None      
+    output     |      id       |   variable    |    global     |    integer    |     55555     
+      pot      |      id       |   variable    |    global     |    integer    |     10000     
+     aux2      |      id       |   variable    |    global     |    integer    |       4       
+      aux      |      id       |   variable    |    global     |    integer    |       5       
+    lenght     |      id       |   variable    |    global     |    integer    |       5       
+    entrada    |      id       |   variable    |    global     |    integer    |       5       
+     print     |      id       |   variable    |    global     |    boolean    |       1       
+    isover     |      id       |   variable    |    global     |    boolean    |       1       
 
 

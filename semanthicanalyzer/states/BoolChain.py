@@ -27,6 +27,7 @@ class BoolChain(StatesChain):
             # inverte no caso de not
             if self.is_inverted == True:
                 value = not value
+                self.is_inverted = False
 
             # salva o valor acumulado
             if self.accumulated_value is None:

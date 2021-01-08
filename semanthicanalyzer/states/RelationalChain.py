@@ -11,7 +11,7 @@ class RelationalChain(StatesChain):
         self.state = self.__resolve_relational
         exp_chain = ExpressionChain(self.scope_manager, self.token_list, self.index)
         value = exp_chain.exec()
-    
+
         if self.first_operand is None:
             self.first_operand = value
         else:

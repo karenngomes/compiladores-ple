@@ -17,7 +17,7 @@ class ReadChain(StatesChain):
 
     def __end(self, token):
         for entry in self.id_list:
-            value = input()
+            value = input("Aguardando Input: ")
             if value.isnumeric():
                 entry.value = int(value)
             else:
