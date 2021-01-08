@@ -1,27 +1,16 @@
-from semanthicanalyzer.states import StatesChain, ConditionChain
+from semanthicanalyzer.states import StatesChain, ConditionChain, WhileChain
 from syntaticanalyzer import TOKEN_POS_INDEX
 
-class RepeatChain(StatesChain):
+class RepeatChain(WhileChain):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, state=self.__begin, **kwargs)
-        self.jump_index = None
+        super().__init__(*args, **kwargs)
+        self.state = self._begin
     
-    def __begin(self, token):
-        self.state = self.__resolve
-        self.jump_index = token[TOKEN_POS_INDEX]
-    
-    def __resolve(self, token):
-        if token[0] == '(': return
-            
-        cond_chain = ConditionChain(self.scope_manager, self.token_list,
-                                    self.index)
-        is_true = cond_chain.exec()
+    def _begin(self, token):
+        super()._begin(token)
+        self.state = self._resolve
 
-        if is_true:
-            self.jump_index.jump_big = False
-            self.index[0] += 1 # pula para o begin depois da condição
-        else:
-            self.jump_index.jump_big = True
-            self.index[0] = self.jump_index.big_jump_index # pula para o token depois do seu par "end"
-            # essa alteração é feita no JumpMaker.
-        self._finalize()
+    def _resolve(self, token):
+        result = super()._resolve(token)
+        if result:
+            self.index[0] -= 1
