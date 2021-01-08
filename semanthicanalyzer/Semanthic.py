@@ -9,7 +9,7 @@ class Semanthic(object):
 
     def analyze(self):
         # inicia a partir do begin do corpo, seu indice esta no token <programa>
-        self.index[0] = self.token_list[0][TOKEN_POS_INDEX]
+        self.index[0] = self.token_list[0][TOKEN_POS_INDEX].get_jump_index()
         while self.index[0] < len(self.token_list):
             token = self.token_list[self.index[0]]
 

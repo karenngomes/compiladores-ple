@@ -12,7 +12,6 @@ begin
     begin
         lenght := 0;
         output := 0;
-        
         repeat
             pot := 1;
             aux2 := 0;
@@ -27,9 +26,7 @@ begin
         until (lenght > aux);
         
         write(output);
-
         aux := aux + 1;
-
 
         if (aux >= entrada) then
         begin

@@ -15,6 +15,7 @@ begin
     else
       begin
         control1 := 0;
+        write(aux);
       end;
     if (aux < 5) then
       begin
@@ -22,7 +23,6 @@ begin
       end
     else
       begin
-        write
         control2 := 0;
       end;
     write(aux, control1, control2);

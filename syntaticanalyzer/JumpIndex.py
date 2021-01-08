@@ -18,3 +18,6 @@ class JumpIndex(object):
         if self.jump_big:
             return self.big_jump_index
         return self.small_jump_index
+
+    def __str__(self):
+        return f"{self.jump_big}, b:{self.big_jump_index}, s:{self.small_jump_index}"

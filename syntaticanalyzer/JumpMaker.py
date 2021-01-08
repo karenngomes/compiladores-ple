@@ -36,9 +36,12 @@ class JumpMaker(object):
             self.__handle_end(token, index)
 
         elif token[0] == 'until':
-            self.pop_begin_stack()
             pair = self.pop_end_stack()
-            token.append(pair[TOKEN_POS_INDEX]) # adiciona ao until atual o indice do inicio do seu loop
+            pair_jump = pair[TOKEN_POS_INDEX]
+            jump = JumpIndex(small_jump=index,
+                             big_jump=pair_jump.small_jump_index, #indice do repea
+                             jump_big=True)
+            token.append(jump) # adiciona ao until atual o indice do inicio do seu loop
             #pair = self.pop_end_stack()
 
     def __handle_end(self, token, index):
@@ -47,6 +50,7 @@ class JumpMaker(object):
         if pair[0] == 'if' or pair[0] == 'else':
             pair_jump = pair[TOKEN_POS_INDEX] # recupera o indice do end que faz par com o token atual
             pair_jump.jump_big = True # coloca como padrao pular para o end
+            pair_jump.small_jump_index += 1
             pair_jump.big_jump_index = index # adiciona esse indice ao token atual
             token.append(JumpIndex(small_jump=index+1))  # adiciona o indice do proximo token ao end
         elif pair[0] == 'program':

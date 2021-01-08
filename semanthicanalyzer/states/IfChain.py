@@ -20,7 +20,8 @@ class IfChain(StatesChain):
         self.result = ConditionChain(self.scope_manager, self.token_list, self.index).exec()
         if self.result == True:
             self.index[0] += 2 # indice do then
-            self.else_token[TOKEN_POS_INDEX].jump_big = True # reseta o else para nao executar
+            if self.else_token is not None:
+                self.else_token[TOKEN_POS_INDEX].jump_big = True # reseta o else para nao executar
         else:
             self.index[0] = self.jump_index.get_jump_index() #if's por padrão pulam grande
             if self.else_token is not None:

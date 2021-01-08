@@ -20,19 +20,24 @@ def main(file_path=main_path+'teste.pas', output=True):
     scope_manager = Syntatic(tokens).parse()
     print('Análise Sintática bem sucedida. A tabela de símbolos está disponível no arquivo symbols-table.log')
 
-    Semanthic(tokens, scope_manager).analyze()
-    print('Análise Semântica bem sucedida.')
-
     if output:
       print_tokens(tokens)
       print_table(scope_manager)
+
+    Semanthic(tokens, scope_manager).analyze()
+    print('Análise Semântica bem sucedida.')
+
+
 
   return tokens, scope_manager
 
 def print_tokens(tokens):
   with open(main_path + 'tokens.log', 'w') as log:
     for i in tokens:
-          log.write(str(i) + ',\n')
+      log.write("[")
+      for c in i:
+        log.write(str(c) + ', ')
+      log.write("],\n")
 
 def print_table(table):
   with open(main_path + 'symbols-table.log', 'w') as log:
