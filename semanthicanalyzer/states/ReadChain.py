@@ -18,9 +18,9 @@ class ReadChain(StatesChain):
     def __end(self, token):
         for entry in self.id_list:
             value = input("Aguardando Input: ")
-            if value.isnumeric():
+            try:
                 entry.value = int(value)
-            else:
+            except:
                 raise Exception(f'Read espera números inteiros')
 
         self._finalize() # ramo da maquina de estado chegou ao fim, precisa executar de onde parou

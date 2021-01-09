@@ -19,9 +19,8 @@ class Semanthic(object):
             elif token[0] == "write":
                 states.WriteChain(self.scope_manager, self.token_list, self.index).exec()
 
-            elif token[0] == "for":
-                #ForChain(self.scope_manager, self.token_list, self.index).exec()
-                pass
+            elif token[0] == "for" or token[0] == "to":
+                states.ForChain(self.scope_manager, self.token_list, self.index).exec()
 
             elif token[0] == "until":
                 states.RepeatChain(self.scope_manager, self.token_list, self.index).exec()
