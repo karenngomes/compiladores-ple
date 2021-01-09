@@ -54,5 +54,7 @@ class ExpressionChain(StatesChain):
         elif self.operator == '*':
             return op1 * op2
         elif self.operator == '/':
+            if op2 == 0:
+                raise(Exception("Divisão por 0!"))
             return op1 // op2 # divisao inteira
 

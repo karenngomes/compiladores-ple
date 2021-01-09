@@ -39,7 +39,7 @@ class JumpMaker(object):
             pair = self.pop_end_stack()
             pair_jump = pair[TOKEN_POS_INDEX]
             jump = JumpIndex(small_jump=index,
-                             big_jump=pair_jump.small_jump_index, #indice do repea
+                             big_jump=pair_jump.small_jump_index, #indice do repeat
                              jump_big=True)
             token.append(jump) # adiciona ao until atual o indice do inicio do seu loop
             #pair = self.pop_end_stack()

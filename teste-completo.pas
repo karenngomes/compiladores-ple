@@ -1,5 +1,5 @@
 program teste;
-	var entrada, lenght, aux, aux2, pot, output : integer;
+	var entrada, lenght, aux, count, pot, output : integer;
 			isover, print : boolean;
 
 begin
@@ -14,11 +14,9 @@ begin
         output := 0;
         repeat
             pot := 1;
-            aux2 := 0;
-            while (aux2 < lenght) do
+            for count := 0 to lenght - 1 do
             begin
-                pot := 10*pot;
-                aux2 := aux2 + 1;
+                pot := pot * 10;
             end;
 
             output := pot*entrada + output;
