@@ -1,5 +1,5 @@
-from LexicalBuffer import LexicalBuffer
-
+from .LexicalBuffer import LexicalBuffer
+from utils.Exceptions import LexicalError
 
 class Lexical(object):
 
@@ -11,10 +11,10 @@ class Lexical(object):
     self.pos = 0
 
   def __add_buffer_to_tokens(self, group : str):
-    self.tokens.append((str(self.buffer), group))
+    self.tokens.append([str(self.buffer), group])
 
   def __add_to_tokens(self, symbol, group : str):
-    self.tokens.append((str(symbol), group))
+    self.tokens.append([str(symbol), group])
 
   def __handle_buffer(self):
     if len(self.buffer) == 0: return
@@ -32,22 +32,22 @@ class Lexical(object):
       elif self.buffer.is_id(): # ou se eh um identificador
         self.__add_buffer_to_tokens('id')
       else:
-        raise Exception(f"Invalid identifier '{self.buffer}' at position {self.pos + 1}, line {self.line}")
+        raise LexicalError(f"Invalid identifier '{self.buffer}' at position {self.pos + 1}, line {self.line}")
     self.buffer.clean()
 
   def __is_compose_delimiter(self, line_buffer):
     current_symbol = LexicalBuffer(line_buffer[self.pos])
-    if self.pos + 1 < len(line_buffer): 
+    if self.pos + 1 < len(line_buffer):
       compose = current_symbol + line_buffer[self.pos + 1]
-      if compose.is_compose_delimiter(): 
+      if compose.is_compose_delimiter():
         if compose.is_relational():
-          self.__add_to_tokens(compose, 'relational')
+          self.__add_to_tokens(compose, 'relacao')
         else:
           self.__add_to_tokens(compose, 'attribution')
         self.pos += 1
         return True
     return False
-          
+
   def __split(self, line_buffer):
     current_symbol = LexicalBuffer(line_buffer[self.pos])
     if current_symbol.is_white_space():
@@ -57,17 +57,17 @@ class Lexical(object):
       self.__handle_buffer()
       if not self.__is_compose_delimiter(line_buffer):
         if current_symbol.is_operator():
-          self.__add_to_tokens(current_symbol, 'operator')
+          self.__add_to_tokens(current_symbol, 'operador')
         elif current_symbol.is_relational():
-          self.__add_to_tokens(current_symbol, 'relational')
+          self.__add_to_tokens(current_symbol, 'relacao')
         else:
           self.__add_to_tokens(current_symbol, 'delimiter')
 
-    elif current_symbol.is_valid(): 
+    elif current_symbol.is_valid():
       self.buffer += current_symbol
 
     else:
-      raise Exception(f'Invalid symbol at position {self.pos + 1}, line {self.line}')
+      raise LexicalError(f'Invalid symbol at position {self.pos + 1}, line {self.line}')
 
   def split(self):
     while True:

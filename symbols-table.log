@@ -1,0 +1,11 @@
+-----lexema----------token----------category---------scope------------type-----------value------
+    output     |      id       |   variable    |    global     |    integer    |     55555     
+      pot      |      id       |   variable    |    global     |    integer    |     10000     
+     count     |      id       |   variable    |    global     |    integer    |       5       
+      aux      |      id       |   variable    |    global     |    integer    |       5       
+    lenght     |      id       |   variable    |    global     |    integer    |       5       
+    entrada    |      id       |   variable    |    global     |    integer    |       5       
+     print     |      id       |   variable    |    global     |    boolean    |       1       
+    isover     |      id       |   variable    |    global     |    boolean    |       1       
+
+
