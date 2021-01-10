@@ -14,7 +14,12 @@ class RoutineChain(StatesChain):
     def __begin(self, token):
         self.state = self.__resolve_parameters
         current_scope_name = self.scope_manager.get_stack_top_name()
-        scope_name = current_scope_name + '-' + token[0]
+        
+        if current_scope_name.split('-')[-1] == token[0]:
+            scope_name = current_scope_name
+        else:
+            scope_name = current_scope_name + '-' + token[0]
+
         self.scope = self.scope_manager[scope_name].copy() # copia o escopo antes de salvar na pilha
                                                            # tem que fechar antes do programa acabar
         self.jump.small_jump_index = self.scope[BEGIN_ENTRY_NAME].value

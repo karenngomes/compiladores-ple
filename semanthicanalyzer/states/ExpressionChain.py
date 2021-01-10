@@ -17,14 +17,17 @@ class ExpressionChain(StatesChain):
             # busca na tabela de simbolos e levanta erro se nao existir em nenhum escopos
             entry = self.scope_manager.search_identifier(token[0])
             # verifica se eh uma variable do tipo inteiro
-            if entry.type == "integer": 
-                value = entry.value
+
+            # TODO: verificar questão de tipo
+
+            #if entry.type == "integer": 
+            value = entry.value
             #elif entry.category == "function":
             #    value = entry.value
             #    if value is None:
             #       raise Exception(f'Null Value')
-            else:
-                raise Exception(f'Expressao espera uma função ou variável inteira e recebeu {entry.category} do tipo {entry.type}')
+            #else:
+            #    raise Exception(f'Expressao espera uma função ou variável inteira e recebeu {entry.category} do tipo {entry.type}')
         else:
             value = int(token[0])
 

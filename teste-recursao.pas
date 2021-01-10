@@ -3,8 +3,15 @@ program teste;
 
 	procedure fatorial(n : integer);
 		begin
-			n := 3;
-			fatorial := n;
+			if (n <= 1) then
+				begin
+				fatorial := 1;
+				end
+			else
+				begin
+				fatorial(n-1);
+				fatorial := n * fatorial;
+				end;
 		end;
 	
 	procedure pot(n : integer);
@@ -19,8 +26,9 @@ program teste;
 		end;
 
 begin
-	aux := 1;
+	read(aux);
 	fatorial(aux);
+	write(fatorial);
 	pot(2);
 	write(pot);
 end
