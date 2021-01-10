@@ -1,7 +1,7 @@
 program teste;
 	var aux, aux1: integer;
 
-	procedure fatorial(n : integer);
+	function fatorial(n : integer) : integer;
 		begin
 			if (n <= 1) then
 				begin

@@ -14,7 +14,7 @@ class RoutineChain(StatesChain):
     def __begin(self, token):
         self.state = self.__resolve_parameters
         current_scope_name = self.scope_manager.get_stack_top_name()
-        
+
         if current_scope_name.split('-')[-1] == token[0]:
             scope_name = current_scope_name
         else:
