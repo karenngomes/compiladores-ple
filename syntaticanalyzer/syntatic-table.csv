@@ -35,7 +35,7 @@ producoes,begin,boolean,boolean1,boolean2,do,else,end,for,function,id,if,integer
 <pfalsa>,,,,,,else begin <sentencas> end,,,,,,,,,,,,,,,,,,,,,#,,,,,
 <expressao>,,,,,,,,,,<termo>,,,<termo>,,,,,,,,,,,,,,,,,,,
 <termo>,,,,,,,,,,<id> <mais_termo>,,,<intnum> <mais_termo>,,,,,,,,,,,,,,,,,,,
-<mais_termo>,,,,,#,,,,,,,,,<operador> <termo>,,,,#,,,#,,,,,,#,,,,#,
+<mais_termo>,,,,,#,,,,,,,,,<operador> <termo>,,,,#,,,#,,,,,#,#,,,,#,
 <mais_exp_bool>,,,<boolean1> <cont_exp_bool>,,,,,,,,,,,,,,,,,,,,,,,,,,,,#,
 <cont_exp_bool>,,,,<boolean2> <outra_exp_bool>,,,,,,<id> <mais_exp_bool>,,,,,,,,,,,,,,,,,,,,,,
 <outra_exp_bool>,,,,<boolean2> <cont_exp_bool>,,,,,,<id> <mais_exp_bool>,,,,,,,,,,,,,,,,,,,,,,

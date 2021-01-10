@@ -32,10 +32,10 @@ class Syntatic(object):
 
   def parse(self):
     while(len(self.stack) > 0):
-      print(self.stack, end='    ')
+      #print(self.stack, end='    ')
       top = self.stack_pop()
       current = self.tokens[self.current_token_index]
-      print(f'current: {current[0]}')
+      #print(f'current: {current[0]}')
       if self.match(top, current):
         self.jump_maker.analyze(current, self.current_token_index)
         self.current_token_index += 1
@@ -52,10 +52,7 @@ class Syntatic(object):
   def __expand_production(self, top, current):
     production = self.__get_production(top, current)
     if production == '':
-      raise Exception('SyntaticError.')
-      #print(self.stack)
-      #print('erro')
-      #sys.exit(0)
+      raise Exception(f'SyntaticError: {self.stack}\n{current}')
     elif production == '#':
       pass
     else:

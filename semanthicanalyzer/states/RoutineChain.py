@@ -51,13 +51,18 @@ class RoutineChain(StatesChain):
         entry_value = ExpressionChain(self.scope_manager,
                                       self.token_list,
                                       self.index).exec()
-        self.__arg_type_validation(self.parameter_list[index],
-                                   entry_value)
+        try:
+            self.__arg_type_validation(self.parameter_list[index],
+                                    entry_value)
+        except IndexError:
+            qt_expected = len(self.parameter_list)
+            raise Exception(f'Routine {self.scope.scope_name} expected {qt_expected} arguments.')
+
 
     def __check_args_quantity(self):
         qt_expected = len(self.parameter_list)
         if qt_expected != self.parameter_index:
-            raise Exception(f'Routine {self.scope.scope_name} expected {qt_expected}.')
+            raise Exception(f'Routine {self.scope.scope_name} expected {qt_expected} arguments.')
 
     def __arg_type_validation(self, param, entry_value):
         if param.type == "integer":

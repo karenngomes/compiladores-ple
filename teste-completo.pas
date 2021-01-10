@@ -2,6 +2,8 @@ program teste;
 	var entrada, lenght, aux, count, pot, output : integer;
 			isover, print : boolean;
 
+    
+
 begin
 	read(entrada);
     aux := 0;
