@@ -2,6 +2,7 @@
     entrada    |      id       |   variable    |    global     |    integer    |     None      
       fat      |      id       |   function    |    global     |    integer    |       6       
      fibo      |      id       |   function    |    global     |    integer    |       3       
+    myprint    |      id       |   procedure   |    global     |     None      |     None      
 
 
 -----lexema----------token----------category---------scope------------type-----------value------
@@ -15,5 +16,12 @@
      !end      |      id       |   variable    |  global-fibo  |    integer    |      108      
        n       |      id       |  parameter0   |  global-fibo  |    integer    |     None      
       aux      |      id       |   variable    |  global-fibo  |    integer    |     None      
+
+
+-----lexema----------token----------category---------scope------------type-----------value------
+    !begin     |      id       |   variable    |global-myprint |    integer    |      110      
+     !end      |      id       |   variable    |global-myprint |    integer    |      131      
+       m       |      id       |  parameter1   |global-myprint |    integer    |     None      
+       n       |      id       |  parameter0   |global-myprint |    integer    |     None      
 
 

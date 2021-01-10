@@ -30,9 +30,16 @@ program teste;
       end;
   end;
 
+  procedure myprint(n, m: integer);
+  begin
+    write(n);
+    write(m);
+  end;
+
 begin
   fat(3);
   write(fat);
   fibo(4);
   write(fibo);
+  myprint(3, 4);
 end.

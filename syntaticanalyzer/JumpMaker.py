@@ -47,7 +47,6 @@ class JumpMaker(object):
             #pair = self.pop_end_stack()
 
     def __handle_end(self, token, index):
-        #TODO: verificar se precisa adiconar uma condicional para o end do corpo do programa
         pair = self.pop_end_stack()
         if pair[0] == 'if' or pair[0] == 'else':
             pair_jump = pair[TOKEN_POS_INDEX] # recupera o indice do end que faz par com o token atual

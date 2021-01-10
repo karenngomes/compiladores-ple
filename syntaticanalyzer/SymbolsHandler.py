@@ -39,7 +39,6 @@ class SymbolsHandler(object):
     """
     symbol, token = _token
     scope_name = self.scope_manager.get_stack_top_name() + '-' + symbol
-    # TODO: alterar o nome dos escopos para escopo1-escopo2-escopo3
     scope = self.scope_manager.create_scope(scope_name, push=True)
     #self.scope_manager.push_in_stack(scope)
     self.__add_begin_end_indexes_to_scope(scope)

@@ -30,31 +30,42 @@ class RoutineChain(StatesChain):
         return int(entry.category.split('parameter')[1])
 
     def __get_parameters_in_scope(self):
-        last_index = 0
         for entry in self.scope.items.values():
             if entry.category.startswith('parameter'):
                 self.parameter_list.append(entry)
         self.parameter_list.sort(key=self.__sort_parameter_list)
 
     def __resolve_parameters(self, token):
-        # TODO: finalizar checagem de parametros
         if token[0]  == '(' or token[0] == ',':
             return
         elif token[1] != 'id' and token[1] != 'intnum': # )
             self.scope_manager.push_in_stack(self.scope)
+            self.__check_args_quantity()
             self.__call()
         else: # passando argumentos
-            index = self.parameter_index
-            entry_value = ExpressionChain(self.scope_manager, self.token_list,
-                                self.index).exec();
-            param = self.parameter_list[index]
-            # TODO: verificar se eh uma unica variavel booleana
-            if param.type == "integer":
-                param.value = entry_value
-            elif param.type == "boolean":
-                param.value = self.scope_manager.search_identifier(token[0])
-            else:
-                raise Exception(f'Invalid argument type: parameter {param.lexema} is a {param.type}.')
+            self.__pass_args()
+
+    def __pass_args(self):
+        index = self.parameter_index
+        self.parameter_index += 1
+        entry_value = ExpressionChain(self.scope_manager,
+                                      self.token_list,
+                                      self.index).exec()
+        self.__arg_type_validation(self.parameter_list[index],
+                                   entry_value)
+
+    def __check_args_quantity(self):
+        qt_expected = len(self.parameter_list)
+        if qt_expected != self.parameter_index:
+            raise Exception(f'Routine {self.scope.scope_name} expected {qt_expected}.')
+
+    def __arg_type_validation(self, param, entry_value):
+        if param.type == "integer":
+            param.value = entry_value
+        elif param.type == "boolean":
+            param.value = self.scope_manager.search_identifier(token[0])
+        else:
+            raise Exception(f'Invalid argument type: parameter {param.lexema} is a {param.type}.')
 
     def __call(self):
         sem = Semanthic(self.token_list, self.scope_manager,

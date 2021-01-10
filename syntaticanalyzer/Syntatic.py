@@ -32,10 +32,10 @@ class Syntatic(object):
 
   def parse(self):
     while(len(self.stack) > 0):
-      #print(self.stack, end='    ')
+      print(self.stack, end='    ')
       top = self.stack_pop()
       current = self.tokens[self.current_token_index]
-      #print(f'current: {current[0]}')
+      print(f'current: {current[0]}')
       if self.match(top, current):
         self.jump_maker.analyze(current, self.current_token_index)
         self.current_token_index += 1
@@ -77,7 +77,10 @@ class Syntatic(object):
         return top[1:size] == current[1]
       else:
         return False
-    return top in self.terminals
+    elif top in self.terminals:
+      return current[0] == top
+    else:
+      return False
 
   def __read_table(self):
     with open('syntaticanalyzer/syntatic-table.csv') as csvfile:
