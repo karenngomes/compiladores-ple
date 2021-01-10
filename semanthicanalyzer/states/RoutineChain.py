@@ -35,21 +35,26 @@ class RoutineChain(StatesChain):
         # TODO: finalizar checagem de parametros
         if token[0]  == '(' or token[0] == ',': 
             return
-        elif token[1] != 'id':
+        elif token[1] != 'id' and token[1] != 'intnum': # )
             self.scope_manager.push_in_stack(self.scope)
             self.__call()
         else: # passando argumentos
             index = self.parameter_index
-            entry = self.scope_manager.search_identifier(token[0])
+            entry_value = ExpressionChain(self.scope_manager, self.token_list,
+                                self.index).exec();
             param = self.parameter_list[index]
-            if param.type == entry.type:
-                param.value = entry.value
+            # TODO: verificar se eh uma unica variavel booleana
+            if param.type == "integer":
+                param.value = entry_value
+            elif param.type == "boolean":
+                param.value = self.scope_manager.search_identifier(token[0])
             else:
                 raise Exception(f'Invalid argument type: parameter {param.lexema} is a {param.type}.')
 
     def __call(self):
         sem = Semanthic(self.token_list, self.scope_manager,
                         begin=self.jump.small_jump_index,
-                        end=self.jump.big_jump_index)
+                        end=self.jump.big_jump_index).analyze()
         self.scope_manager.pop_stack()
         self._finalize()
+        return

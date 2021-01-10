@@ -17,7 +17,7 @@ class ExpressionChain(StatesChain):
             # busca na tabela de simbolos e levanta erro se nao existir em nenhum escopos
             entry = self.scope_manager.search_identifier(token[0])
             # verifica se eh uma variable do tipo inteiro
-            if entry.category == "variable" and entry.type == "integer": 
+            if entry.type == "integer": 
                 value = entry.value
             #elif entry.category == "function":
             #    value = entry.value

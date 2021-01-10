@@ -1,12 +1,21 @@
 -----lexema----------token----------category---------scope------------type-----------value------
      aux1      |      id       |   variable    |    global     |    integer    |     None      
       aux      |      id       |   variable    |    global     |    integer    |       1       
-   fatorial    |      id       |   procedure   |    global     |     None      |     None      
+   fatorial    |      id       |   procedure   |    global     |     None      |       3       
+      pot      |      id       |   procedure   |    global     |     None      |      100      
 
 
 -----lexema----------token----------category---------scope------------type-----------value------
     !begin     |      id       |   variable    |global-fatorial|    integer    |      10       
-     !end      |      id       |   variable    |global-fatorial|    integer    |      23       
+     !end      |      id       |   variable    |global-fatorial|    integer    |      27       
        n       |      id       |  parameter0   |global-fatorial|    integer    |     None      
+
+
+-----lexema----------token----------category---------scope------------type-----------value------
+    !begin     |      id       |   variable    |  global-pot   |    integer    |      29       
+     !end      |      id       |   variable    |  global-pot   |    integer    |      76       
+       n       |      id       |  parameter0   |  global-pot   |    integer    |     None      
+     count     |      id       |   variable    |  global-pot   |    integer    |     None      
+      aux      |      id       |   variable    |  global-pot   |    integer    |     None      
 
 

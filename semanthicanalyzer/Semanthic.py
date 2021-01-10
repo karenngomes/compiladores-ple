@@ -44,9 +44,8 @@ class Semanthic(object):
                 entry = self.scope_manager.search_identifier(token[0])
                 if self.token_list[self.index[0] + 1][1] == "attribution":
                     states.AttributionChain(self.scope_manager, self.token_list, self.index).exec()
-                elif entry.category == 'function' or entry.category == 'procedure':
+                elif (entry.category == 'function' or entry.category == 'procedure') and (self.token_list[self.index[0] - 1][0] != "procedure" and self.token_list[self.index[0] - 1][0] != "function"):
                     states.RoutineChain(self.scope_manager, self.token_list, self.index).exec()
-                    pass
                 
             else: # tokens sem função semântica
                 pass

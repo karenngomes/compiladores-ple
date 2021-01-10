@@ -21,9 +21,12 @@ def test_expression():
     exp_chain = ExpressionChain(sm, token_list, index[0])
     exp_chain2 = ExpressionChain(sm, [['4', 'intnum'],[';', 'delimiter']],
                                  index[1])
+    exp_chain3 = ExpressionChain(sm, [['a', 'id'], ['to', 'reserved']],
+                                 index[1])        
 
     value = exp_chain.exec()
     value2 = exp_chain2.exec()
-    
+    value3 = exp_chain3.exec()
     assert value == -4 
     assert value2 == 4
+    assert value3 == 5
