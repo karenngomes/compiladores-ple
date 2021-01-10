@@ -12,3 +12,5 @@ from semanthicanalyzer.states.IfChain import *
 from semanthicanalyzer.states.WhileChain import *
 from semanthicanalyzer.states.RepeatChain import *
 from semanthicanalyzer.states.ForChain import *
+
+from semanthicanalyzer.states.RoutineChain import *

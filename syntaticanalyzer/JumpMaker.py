@@ -15,7 +15,7 @@ class JumpMaker(object):
 
     def pop_end_stack(self):
         return self.end_stack.pop()
-    
+
     def push_begin_stack(self, token):
         self.begin_stack.append(token)
 
@@ -26,6 +26,8 @@ class JumpMaker(object):
         jump_points = ['if', 'else', 'while', 'repeat', 'for', 'program', 'procedure', 'function']
         if token[0] in jump_points:
             token.append(JumpIndex(small_jump=index))
+            if token[0] == 'procedure' or token[0] == 'function':
+                token[TOKEN_POS_INDEX].big_jump_index = [-1]
             self.push_begin_stack(token)
             self.push_end_stack(token)
 
@@ -53,6 +55,12 @@ class JumpMaker(object):
             pair_jump.small_jump_index += 1
             pair_jump.big_jump_index = index # adiciona esse indice ao token atual
             token.append(JumpIndex(small_jump=index+1))  # adiciona o indice do proximo token ao end
+        elif pair[0] == 'procedure' or pair[0] == 'function':
+            # o jump das rotinas vai guardar o indice do primeiro token e do ultimo da rotina
+            # isso será usado no symbols handler para registrar na table de simbolos da propria rotina
+            pair_jump = pair[TOKEN_POS_INDEX]
+            pair_jump.big_jump_index[0] = index
+            token.append(JumpIndex())  # o end de rotinas não tem um jump real
         elif pair[0] == 'program':
             token.append(JumpIndex(small_jump=index+1)) # faz com que o end do program siga em frente
         else:
@@ -62,11 +70,12 @@ class JumpMaker(object):
                                    jump_big=True)) # adiciona ao end atual o indice do seu dono
 
             pair[TOKEN_POS_INDEX].big_jump_index = index + 1  # adiciona ao token do loop o indice após seu end
-    
-    
+
     def __handle_begin(self, token, index):
         pair = self.pop_begin_stack()
+        jump = pair[TOKEN_POS_INDEX]
         if pair[0] == 'program':
-            jump = pair[TOKEN_POS_INDEX]
             jump.jump_big = True
             jump.big_jump_index = index
+        if pair[0] == 'procedure' or pair[0] == 'function':
+            jump.small_jump_index = index

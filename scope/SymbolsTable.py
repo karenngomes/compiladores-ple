@@ -1,3 +1,5 @@
+BEGIN_ENTRY_NAME = '!begin'
+END_ENTRY_NAME = '!end'
 
 class SymbolsTable(object):
     def __init__(self, scope_name):
@@ -21,6 +23,12 @@ class SymbolsTable(object):
 
     def entry_exists(self, key):
         return key in self.items.keys()
+    
+    def copy(self):
+        new_table = SymbolsTable(self.scope_name)
+        for entry in self.items.values():
+            new_table.add_entry(entry.copy())
+        return new_table
 
     def __getitem__(self, key):
         return self.items[key]
