@@ -1,21 +1,19 @@
 -----lexema----------token----------category---------scope------------type-----------value------
-     aux1      |      id       |   variable    |    global     |    integer    |     None      
-      aux      |      id       |   variable    |    global     |    integer    |       6       
-   fatorial    |      id       |   function    |    global     |    integer    |      720      
-      pot      |      id       |   procedure   |    global     |     None      |      100      
+    entrada    |      id       |   variable    |    global     |    integer    |     None      
+      fat      |      id       |   function    |    global     |    integer    |       6       
+     fibo      |      id       |   function    |    global     |    integer    |       3       
 
 
 -----lexema----------token----------category---------scope------------type-----------value------
-    !begin     |      id       |   variable    |global-fatorial|    integer    |      10       
-     !end      |      id       |   variable    |global-fatorial|    integer    |      51       
-       n       |      id       |  parameter0   |global-fatorial|    integer    |     None      
+    !begin     |      id       |   variable    |  global-fat   |    integer    |       8       
+     !end      |      id       |   variable    |  global-fat   |    integer    |      49       
+       n       |      id       |  parameter0   |  global-fat   |    integer    |     None      
 
 
 -----lexema----------token----------category---------scope------------type-----------value------
-    !begin     |      id       |   variable    |  global-pot   |    integer    |      53       
-     !end      |      id       |   variable    |  global-pot   |    integer    |      95       
-       n       |      id       |  parameter0   |  global-pot   |    integer    |     None      
-     count     |      id       |   variable    |  global-pot   |    integer    |     None      
-      aux      |      id       |   variable    |  global-pot   |    integer    |     None      
+    !begin     |      id       |   variable    |  global-fibo  |    integer    |      51       
+     !end      |      id       |   variable    |  global-fibo  |    integer    |      108      
+       n       |      id       |  parameter0   |  global-fibo  |    integer    |     None      
+      aux      |      id       |   variable    |  global-fibo  |    integer    |     None      
 
 

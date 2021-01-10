@@ -37,8 +37,10 @@ class Semanthic(object):
                 states.IfChain(self.scope_manager, self.token_list, self.index).exec()
 
             elif token[0] == 'else' or token[0] == 'end': # checar JumpMaker
-                self.index[0] = token[TOKEN_POS_INDEX].get_jump_index()
-                self.index[0] -= 1 # para nao andar dois tokens de uma vez
+                next_token = self.token_list[self.index[0] + 1]
+                if next_token[0] != '.':
+                    self.index[0] = token[TOKEN_POS_INDEX].get_jump_index()
+                    self.index[0] -= 1 # para nao andar dois tokens de uma vez
 
             elif token[1] == "id":
                 entry = self.scope_manager.search_identifier(token[0])

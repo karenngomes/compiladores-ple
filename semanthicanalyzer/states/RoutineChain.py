@@ -35,10 +35,10 @@ class RoutineChain(StatesChain):
             if entry.category.startswith('parameter'):
                 self.parameter_list.append(entry)
         self.parameter_list.sort(key=self.__sort_parameter_list)
-    
+
     def __resolve_parameters(self, token):
         # TODO: finalizar checagem de parametros
-        if token[0]  == '(' or token[0] == ',': 
+        if token[0]  == '(' or token[0] == ',':
             return
         elif token[1] != 'id' and token[1] != 'intnum': # )
             self.scope_manager.push_in_stack(self.scope)

@@ -1,72 +1,38 @@
 program teste;
-	var entrada, aux, te1 : integer;
-			te, ti : boolean;
+	var entrada: integer;
 
-	procedure umprocedimento(argproc1, argproc2 : integer; argproc3, argproc4 : boolean);
-		var procvar, pvar : boolean;
-				intprocvar, ppvar : integer;
+  function fat(n:integer) : integer;
+  begin
+    if (n <= 1) then
+      begin
+        fat := 1;
+      end
+    else
+      begin
+        fat(n - 1);
+        fat := n * fat;
+      end;
+  end;
 
-		procedure outroproc;
-			var x : integer;
-			begin
-				v := 1;
-				procvar := procvar + v;
-			end;
-
-		procedure maisumproc;
-			var x : integer;
-			begin
-				v := 1;
-			end;
-
-		function funcinproc(arg1 : integer; arg2 : boolean) : integer;
-		begin
-			arg1 := 3;
-			arg2 := 0;
-		end;
-
-		begin
-			procvar := 1;
-			intprocvar := 34;
-			ppvar := 2 + intprocvar;
-			outroproc;
-			maisumproc;
-		end;
-
-	function umafuncao(funcvar : integer) : integer;
-	begin	
-		funcvar := 1;
-	end;
-
-
+  function fibo(n:integer): integer;
+    var aux : integer;
+  begin
+    if (n <= 1) then
+      begin
+        fibo := n;
+      end
+    else
+      begin
+        fibo(n-1);
+        aux := fibo;
+        fibo(n-2);
+        fibo := aux + fibo;
+      end;
+  end;
 
 begin
-    entrada := 15 + 15 * 12;
-    
-	if (entrada > aux) then
-    	begin 
-        aux := 5;
-    	end
-	else
-		begin
-		aux := 10;
-		end;
-
-	if (b and y) then
-	begin
-		x := a + b;
-	end;
-	
-	umprocedimento;
-
-	for entrada := 1 to 5 do
-	begin
-		read(entrada);
-	end;
-
-	while (x < 10) do
-	begin
-		write(entrada);
-	end;
-end
-.
+  fat(3);
+  write(fat);
+  fibo(4);
+  write(fibo);
+end.
