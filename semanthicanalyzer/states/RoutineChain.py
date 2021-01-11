@@ -65,10 +65,10 @@ class RoutineChain(StatesChain):
             raise Exception(f'Routine {self.scope.scope_name} expected {qt_expected} arguments.')
 
     def __arg_type_validation(self, param, entry_value):
-        if param.type == "integer":
+        if param.type == "boolean" and isinstance(entry_value, bool):
             param.value = entry_value
-        elif param.type == "boolean":
-            param.value = self.scope_manager.search_identifier(token[0])
+        elif param.type == "integer" and not isinstance(entry_value, bool):
+            param.value = entry_value
         else:
             raise Exception(f'Invalid argument type: parameter {param.lexema} is a {param.type}.')
 

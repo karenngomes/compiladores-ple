@@ -1,8 +1,16 @@
 program teste;
-	var entrada, lenght, aux, count, pot, output : integer;
+	var entrada, lenght, aux, output : integer;
 			isover, print : boolean;
 
-    
+    function pot(n:integer; m:boolean) : integer;
+    var count : integer ;
+    begin
+        pot := 1;
+        for count := 0 to n - 1 do
+        begin
+            pot := pot * 10;
+        end;
+    end;
 
 begin
 	read(entrada);
@@ -16,11 +24,7 @@ begin
         output := 0;
         repeat
             pot := 1;
-            for count := 0 to lenght - 1 do
-            begin
-                pot := pot * 10;
-            end;
-
+            pot(lenght, isover);
             output := pot*entrada + output;
             lenght := lenght + 1;
         until (lenght > aux);
