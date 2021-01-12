@@ -17,7 +17,7 @@ class StatesChain(object):
 
     def run(self, token):
         return self.state(token)
-    
+
     def exec(self):
         while True:
             value = self.run(self.token_list[self.index[0]])

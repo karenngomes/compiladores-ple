@@ -1,4 +1,5 @@
-from scope import Entry
+from scope import Entry, BEGIN_ENTRY_NAME, END_ENTRY_NAME
+import re
 
 class SymbolsHandler(object):
   def __init__(self, scope_manager):
@@ -7,12 +8,13 @@ class SymbolsHandler(object):
     self.current_scope_name = 'global'
     self.__next_action = self.__analyze # estado a ser executado no momento
     self.action_buffer = []
+    self.routine_token = None
+    self.parameter_index = 0
 
   def analyze(self, _token):
     """
     Executa a máquina de estado, recebe um token e muda o estado atual da máquina (self.__next_action)
     """
-    #TODO: modificar tabela de simbolos para guardar __begin __call
     self.__next_action(_token)
 
   def __analyze(self, _token):
@@ -24,6 +26,7 @@ class SymbolsHandler(object):
     except ValueError:
       symbol, token, token_pos = _token
     if symbol == 'procedure' or symbol == 'function':
+      self.routine_token = _token
       self.__next_action = self.__change_scope
     elif symbol == 'begin':
       self.scope_manager.pop_stack()
@@ -35,11 +38,24 @@ class SymbolsHandler(object):
     Estado intermediário da maquina de estado, que trata procedimento e funcao
     """
     symbol, token = _token
-    scope = self.scope_manager.create_scope(symbol)
-    self.scope_manager.push_in_stack(scope)
+    scope_name = self.scope_manager.get_stack_top_name() + '-' + symbol
+    scope = self.scope_manager.create_scope(scope_name, push=True)
+    #self.scope_manager.push_in_stack(scope)
+    self.__add_begin_end_indexes_to_scope(scope)
     self.__next_action = self.__prepare_parameter_declaration
     previous_scope = self.scope_manager.get_in_stack_from_top(1)
     previous_scope.add_entry(Entry(symbol, token, '', previous_scope.scope_name, None))
+
+  def __add_begin_end_indexes_to_scope(self, scope):
+      jump_index = self.routine_token[2]
+      scope.add_entry(
+        Entry(BEGIN_ENTRY_NAME, 'id', 'variable',
+              scope.scope_name, 'integer',jump_index.small_jump_index)
+      )
+      scope.add_entry(
+        Entry(END_ENTRY_NAME, 'id', 'variable',
+              scope.scope_name, 'integer', jump_index.big_jump_index)
+      )
 
   def __prepare_parameter_declaration(self, _token):
     """
@@ -54,7 +70,9 @@ class SymbolsHandler(object):
     """
     Estado intermediário da maquina de estado, que trata declaração de parametros
     """
-    self.__var_declaration(_token) # trata a declaração de variaveis dentro dos parametros
+    index = str(int(self.parameter_index))
+    self.__var_declaration(_token, 'parameter', index) # trata a declaração de variaveis dentro dos parametros
+    self.parameter_index += .5
     if _token[0] == ':': # se terminou a declaracao das variaveis, altera o estado de get_var_type para get_parameters_type
       self.__next_action = self.__get_parameters_type # seta o tipo das variaveis declaradas
 
@@ -63,13 +81,15 @@ class SymbolsHandler(object):
       self.__next_action = self.__parameter_declaration
     elif _token[0] == ')':
       self.__next_action = self.__end_routine
+      self.parameter_index = 0
     else:  # li o tipo do argumento
       self.__get_var_type(_token)
       self.__next_action = self.__get_parameters_type
 
   def __end_routine(self, _token):
     previous_scope = self.scope_manager.get_in_stack_from_top(1)  # nome do escopo onde a rotina está sendo declarada
-    entry = previous_scope[self.scope_manager.get_stack_top_name()]  # o escopo atual tem o mesmo nome da rotina
+    scope_name = self.scope_manager.get_stack_top_name().split('-')[-1]
+    entry = previous_scope[scope_name]  # o escopo atual tem o mesmo nome da rotina
     if _token[0] == ';': # so pode ser procedimento
       entry.category = 'procedure'
     elif _token[0] == ':': #so poder ser funcao
@@ -79,6 +99,7 @@ class SymbolsHandler(object):
 
   def __prepare_more_var_declaration(self, _token):
     if _token[0] in ['procedure', 'function']: # acabou a declaração de variaveis e tem rotina
+      self.routine_token = _token
       self.__next_action = self.__change_scope
     elif _token[0] == 'begin':  # acabou a declaração de variáveis e não tem rotina
       self.scope_manager.pop_stack()
@@ -87,7 +108,7 @@ class SymbolsHandler(object):
       self.__var_declaration(_token)
       self.__next_action = self.__var_declaration
 
-  def __var_declaration(self, _token):
+  def __var_declaration(self, _token, category='variable', index=''):
     """
     Estado intermediário da maquina de estado, que trata declaracao de variaveis normais
     """
@@ -98,7 +119,7 @@ class SymbolsHandler(object):
       self.__next_action = self.__get_var_type
     else: # li <id>
       scope = self.scope_manager.get_stack_top()
-      e = Entry(symbol, token, 'variable', scope.scope_name, None, None)
+      e = Entry(symbol, token, category + index , scope.scope_name, None, None)
       self.action_buffer.append((scope.add_entry, e))
 
   def __get_var_type(self, _token):

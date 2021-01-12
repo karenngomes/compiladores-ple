@@ -1,27 +1,35 @@
 program teste;
 	var aux, aux1: integer;
 
-	procedure fatorial(n : integer);
+	function fatorial(n : integer) : integer;
 		begin
-			if (n = 0 or n = 1) then
-			begin
-				aux := 1;
-			end
+			if (n <= 1) then
+				begin
+				fatorial := 1;
+				end
 			else
-			begin
-				fatorial(n-1)
-				aux := n * aux
-			end;
-	// n aux 
-	// 4  24
-	// 3  6
-	// 2  2 
-	// 1  1
-	// 1
+				begin
+				fatorial(n-1);
+				fatorial := n * fatorial;
+				end;
+		end;
+	
+	procedure pot(n : integer);
+		var aux, count : integer;
+		begin
+			aux := 1;
+            for count := 0 to n - 1 do
+            begin
+                aux := aux * 10;
+            end;
+			pot := aux; 
 		end;
 
 begin
-	aux := 1;
-	fatorial(4);
+	read(aux);
+	fatorial(aux);
+	write(fatorial);
+	pot(2);
+	write(pot);
 end
 .

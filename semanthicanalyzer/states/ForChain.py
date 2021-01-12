@@ -32,6 +32,8 @@ class ForChain(StatesChain):
     def _attribution(self, token):
         self.loop_variable = self.scope_manager.search_identifier(token[0])
         #print(self.loop_variable)
+        if self.loop_variable.type == "boolean":
+            raise Exception(f'Invalid argument type: variable {self.loop_variable.lexema} used inside a "for" cannot be boolean.')
         AttributionChain(self.scope_manager, self.token_list,
                                 self.index).exec()
         self.state = self._solve_condition

@@ -52,10 +52,7 @@ class Syntatic(object):
   def __expand_production(self, top, current):
     production = self.__get_production(top, current)
     if production == '':
-      raise Exception('SyntaticError.')
-      #print(self.stack)
-      #print('erro')
-      #sys.exit(0)
+      raise Exception(f'SyntaticError: {self.stack}\n{current}')
     elif production == '#':
       pass
     else:
@@ -77,7 +74,10 @@ class Syntatic(object):
         return top[1:size] == current[1]
       else:
         return False
-    return top in self.terminals
+    elif top in self.terminals:
+      return current[0] == top
+    else:
+      return False
 
   def __read_table(self):
     with open('syntaticanalyzer/syntatic-table.csv') as csvfile:
