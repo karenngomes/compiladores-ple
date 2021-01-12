@@ -1,5 +1,5 @@
 program teste;
-	var entrada: integer;
+	var entrada, aux: integer;
 
   function fat(n:integer) : integer;
   begin
@@ -16,6 +16,20 @@ program teste;
 
   function fibo(n:integer): integer;
     var aux : integer;
+
+    function fat(n:integer) : integer;
+    begin
+      if (n <= 1) then
+        begin
+          fat := 1;
+        end
+      else
+        begin
+          fat(n - 1);
+          fat := n * fat;
+        end;
+    end;
+
   begin
     if (n <= 1) then
       begin
@@ -23,23 +37,20 @@ program teste;
       end
     else
       begin
+        fat(n);
         fibo(n-1);
         aux := fibo;
         fibo(n-2);
         fibo := aux + fibo;
+        write(fibo, fat);
       end;
   end;
 
-  procedure myprint(n, m: integer);
-  begin
-    write(n);
-    write(m);
-  end;
 
 begin
-  fat(3);
-  write(fat);
-  fibo(4);
-  write(fibo);
-  myprint(3, 4);
+  repeat
+    read(aux);
+    fibo(aux);
+    write(fibo);
+  until (aux = 0);
 end.

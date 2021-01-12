@@ -27,7 +27,8 @@ class JumpMaker(object):
         if token[0] in jump_points:
             token.append(JumpIndex(small_jump=index))
             if token[0] == 'procedure' or token[0] == 'function':
-                token[TOKEN_POS_INDEX].big_jump_index = [-1]
+                token[TOKEN_POS_INDEX].small_jump_index = [None]
+                token[TOKEN_POS_INDEX].big_jump_index = [None]
             self.push_begin_stack(token)
             self.push_end_stack(token)
 
@@ -65,7 +66,7 @@ class JumpMaker(object):
         else:
             pair_small_jump = pair[TOKEN_POS_INDEX].small_jump_index
             token.append(JumpIndex(small_jump=index+1,
-                                   big_jump=pair_small_jump, 
+                                   big_jump=pair_small_jump,
                                    jump_big=True)) # adiciona ao end atual o indice do seu dono
 
             pair[TOKEN_POS_INDEX].big_jump_index = index + 1  # adiciona ao token do loop o indice após seu end
@@ -76,5 +77,5 @@ class JumpMaker(object):
         if pair[0] == 'program':
             jump.jump_big = True
             jump.big_jump_index = index
-        if pair[0] == 'procedure' or pair[0] == 'function':
-            jump.small_jump_index = index
+        elif pair[0] == 'procedure' or pair[0] == 'function':
+            jump.small_jump_index[0] = index

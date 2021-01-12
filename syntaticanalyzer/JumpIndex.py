@@ -1,6 +1,6 @@
 
 class JumpIndex(object):
-    def __init__(self, small_jump=-1, big_jump=-1, jump_big=False):
+    def __init__(self, small_jump=None, big_jump=None, jump_big=False):
         """This class stores a token jump indexes
 
         When jumping tokens, sometimes you need jump big or jump small. So

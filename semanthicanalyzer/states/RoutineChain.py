@@ -22,7 +22,7 @@ class RoutineChain(StatesChain):
 
         self.scope = self.scope_manager[scope_name].copy() # copia o escopo antes de salvar na pilha
                                                            # tem que fechar antes do programa acabar
-        self.jump.small_jump_index = self.scope[BEGIN_ENTRY_NAME].value
+        self.jump.small_jump_index = self.scope[BEGIN_ENTRY_NAME].value[0]
         self.jump.big_jump_index = self.scope[END_ENTRY_NAME].value[0]
         self.__get_parameters_in_scope()
 

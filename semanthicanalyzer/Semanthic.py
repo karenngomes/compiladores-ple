@@ -8,12 +8,13 @@ class Semanthic(object):
         self.begin = begin
         self.end = len(tokens) if end == -1 else end
         self.scope_manager = scope_manager
+        #print(self.scope_manager.get_stack_top(), self.begin, self.end)
 
     def analyze(self):
         # inicia a partir do begin do corpo, seu indice esta no token <programa>
         if self.begin == 0:
             self.index[0] = self.token_list[0][TOKEN_POS_INDEX].get_jump_index()
-        else: 
+        else:
             self.index[0] = self.begin
         while self.index[0] < self.end:
             token = self.token_list[self.index[0]]
@@ -46,9 +47,9 @@ class Semanthic(object):
                 entry = self.scope_manager.search_identifier(token[0])
                 if self.token_list[self.index[0] + 1][1] == "attribution":
                     states.AttributionChain(self.scope_manager, self.token_list, self.index).exec()
-                elif (entry.category == 'function' or entry.category == 'procedure') and (self.token_list[self.index[0] - 1][0] != "procedure" and self.token_list[self.index[0] - 1][0] != "function"):
+                elif entry.category == 'function' or entry.category == 'procedure':
                     states.RoutineChain(self.scope_manager, self.token_list, self.index).exec()
-                
+
             else: # tokens sem função semântica
                 pass
 
