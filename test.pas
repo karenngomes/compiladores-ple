@@ -7,6 +7,7 @@ program teste;
       begin
         fat := 1;
       end
+      
     else
       begin
         fat(n - 1);
